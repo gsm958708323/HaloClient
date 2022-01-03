@@ -56,18 +56,17 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FightMgr.cs" />
     <Compile Include="Assets\Scripts\Buff\Buff.cs" />
-    <Compile Include="Assets\Scripts\Buff\BuffComp.cs" />
-    <Compile Include="Assets\Scripts\Buff\BuffConfigHelper.cs" />
-    <Compile Include="Assets\Scripts\Condition\Condition.cs" />
-    <Compile Include="Assets\Scripts\Effect\Effect.cs" />
+    <Compile Include="Assets\Scripts\Buff\BuffCfg.cs" />
+    <Compile Include="Assets\Scripts\Buff\BuffDef.cs" />
+    <Compile Include="Assets\Scripts\Buff\BuffHelper.cs" />
+    <Compile Include="Assets\Scripts\Buff\MoveSpeedBuff.cs" />
+    <Compile Include="Assets\Scripts\Component\BuffComponent.cs" />
     <Compile Include="Assets\Scripts\Event\EventDef.cs" />
     <Compile Include="Assets\Scripts\Event\EventDispatcher.cs" />
-    <Compile Include="Assets\Scripts\Player\Entity.cs" />
-    <Compile Include="Assets\Scripts\Player\InputComp.cs" />
-    <Compile Include="Assets\Scripts\Player\TimingDef.cs" />
-    <Compile Include="Assets\Scripts\Skill\SkillComp.cs" />
-    <Compile Include="Assets\Scripts\Skill\SkillConfigHelper.cs" />
+    <Compile Include="Assets\Scripts\Unit\Unit.cs" />
+    <Compile Include="Assets\Scripts\Unit\UnitHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

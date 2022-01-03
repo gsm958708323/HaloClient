@@ -1,37 +1,102 @@
 ﻿/* ==============================================================================
 * 功能描述：Buff  
 * 创 建 者：Halo
-* 创建日期：2021/12/19 16:05:36
+* 创建日期：2022/1/3 15:41:54
 * ==============================================================================*/
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class Buff
+public abstract class Buff
 {
-    public TimingEnum StartTiming;
-    public TimingEnum EndTiming;
-    public Condition Condition;
-    private List<Effect> listEffect = new List<Effect>();
 
-    public void AddEffect(Effect effect)
+    public BuffCfg Cfg;
+    public BuffState State = BuffState.None;
+
+    protected Unit from;
+    protected Unit to;
+    protected BuffType buffEnum;
+    protected object[] args;
+
+    protected int delayCount;
+    protected int durationCount;
+
+    public Buff(Unit from, Unit to, BuffType buffEnum, object[] args)
     {
-        listEffect.Add(effect);
+        this.from = from;
+        this.to = to;
+        this.buffEnum = buffEnum;
+        this.args = args;
+        this.Cfg = BuffHelper.GetBuffCfg(buffEnum);
     }
 
-    public void StartEffect()
+    public virtual void Init()
     {
-        for (int i = 0; i < listEffect.Count; i++)
+        durationCount = Cfg.Duration;
+
+        if (Cfg.Delay > 0)
         {
-            listEffect[i].Start();
+            State = BuffState.Delay;
+            delayCount = Cfg.Delay;
+        }
+        else
+        {
+            // todo 当前帧还是下一帧？
+            State = BuffState.Start;
+            Start();
         }
     }
 
-    public void EndEffect()
+    public virtual void Start()
     {
-        for (int i = 0; i < listEffect.Count; i++)
+    }
+
+    public virtual void End()
+    {
+    }
+
+    public virtual void Tick()
+    {
+        if (State == BuffState.Delay)
         {
-            listEffect[i].End();
+            delayCount -= BuffDef.LogicFrameIntervelMs;
+            if (delayCount <= 0)
+            {
+                delayCount = 0;
+
+                State = BuffState.Start;
+                Start();
+            }
+        }
+        else if (State == BuffState.Start)
+        {
+            if (Cfg.Duration > 0)
+            {
+                State = BuffState.Tick;
+            }
+            else
+            {
+                State = BuffState.End;
+                End();
+            }
+        }
+        else if (State == BuffState.End)
+        {
+            State = BuffState.None;
+        }
+        else if (State == BuffState.Tick)
+        {
+            durationCount -= BuffDef.LogicFrameIntervelMs;
+            if(durationCount <= 0)
+            {
+                durationCount = 0;
+
+                State = BuffState.End;
+                End();
+            }
+        }
+        else
+        {
+            UnityEngine.Debug.LogError($"Buff状态切换失败：{State}");
         }
     }
 }
