@@ -21,7 +21,19 @@ public enum BuffType
     MoveSpeed = 10110,
 }
 
-public class BuffDef
+public static class BuffDef
 {
-    public const int LogicFrameIntervelMs = 1;
+    /// <summary>
+    /// 逻辑帧的间隔
+    /// </summary>
+    public static int LogicFrameIntervelMs
+    {
+        get
+        {
+            return (int)(UnityEngine.Time.deltaTime * 1000);
+        }
+        private set { }
+    }
+
+    public static readonly int ForeverBuff = -1;
 }

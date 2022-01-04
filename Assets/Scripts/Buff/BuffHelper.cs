@@ -20,9 +20,9 @@ public static class BuffHelper
 
                 AttachType = BuffAttach.Caster,
 
-                Delay = 0,
-                Interval = 0,
-                Duration = 3000,
+                Delay = 1000,
+                Interval = 1000,
+                Duration = -1,
 
                 //专有属性，提速30%
                 AddPct = 30,

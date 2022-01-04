@@ -30,7 +30,7 @@ public class Unit
     public void ModifySpeed(int speed)
     {
         this.speed += speed;
-        UnityEngine.Debug.Log($"速度改变：{speed}");
+        UnityEngine.Debug.Log($"速度改变：{this.speed}");
     }
 
     public int GetSpeed()

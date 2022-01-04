@@ -25,21 +25,13 @@ public class MoveSpeedBuff : Buff
 
     }
 
-    public override void Init()
-    {
-        MoveSpeedBuffCfg speedCfg = (MoveSpeedBuffCfg)Cfg;
-
-        target = (speedCfg.AttachType == BuffAttach.Target) ? to : from;
-        speedChange = target.GetSpeed() * speedCfg.AddPct / 100;
-    
-        // todo 生命周期控制
-        base.Init();
-    }
-
-
     public override void Start()
     {
         base.Start();
+        MoveSpeedBuffCfg speedCfg = (MoveSpeedBuffCfg)Cfg;
+        target = (speedCfg.AttachType == BuffAttach.Target) ? to : from;
+        speedChange = target.GetSpeed() * speedCfg.AddPct / 100;
+
         target.ModifySpeed(speedChange);
     }
 

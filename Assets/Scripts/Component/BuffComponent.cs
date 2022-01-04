@@ -32,7 +32,7 @@ public class BuffComponent
     public Buff CreateBuff(BuffType type, Unit to = null, object[] args = null)
     {
         Buff buff = BuffHelper.CreateBuff(unit, type, to, args);
-        buff.Init();
+        buff.LogicInit();
         buffList.Add(buff);
         return buff;
     }
@@ -50,13 +50,13 @@ public class BuffComponent
     {
         for (int i = 0; i < buffList.Count; i++)
         {
-            if (buffList[i].State == BuffState.None)
+            if (buffList[i].GetState() == BuffState.None)
             {
                 buffList.RemoveAt(i);
             }
             else
             {
-                buffList[i].Tick();
+                buffList[i].LogicTick();
             }
         }
     }
