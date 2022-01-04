@@ -26,10 +26,10 @@ public class FightMgr : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            unit.BuffComponent.CreateBuff(BuffType.MoveSpeed);
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    unit.BuffComponent.CreateBuff(BuffType.MoveSpeed);
+        //}
 
         unit.Tick();
     }

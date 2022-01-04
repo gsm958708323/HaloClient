@@ -7,6 +7,7 @@ public class UnitCfg
     public string Name;
 
     public int Speed;
+    public int Hp;
 
     /// <summary>
     /// 主动技能
@@ -16,6 +17,7 @@ public class UnitCfg
     /// 被动技能
     /// </summary>
     public BuffType[] PassiveSkill;
+
 }
 
 public class Unit
@@ -25,7 +27,8 @@ public class Unit
     //todo 改成组件挂载
     public BuffComponent BuffComponent;
 
-    private int speed;
+    int speed;
+    int hp;
 
     public void ModifySpeed(int speed)
     {
@@ -38,6 +41,17 @@ public class Unit
         return speed;
     }
 
+    public void ModifyHp(int hp)
+    {
+        this.hp += hp;
+        UnityEngine.Debug.Log($"血量改变：{this.hp}");
+    }
+
+    public int GetHp()
+    {
+        return hp;
+    }
+
     public void Init()
     {
         Cfg = UnitHelper.GetUnitCfg(Type);
@@ -47,6 +61,7 @@ public class Unit
 
     public void Start()
     {
+        hp = 50; // 模拟受伤回血
         speed = Cfg.Speed;
 
         BuffComponent.InitBuff();

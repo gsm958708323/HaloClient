@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\Buff\BuffCfg.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffDef.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffHelper.cs" />
+    <Compile Include="Assets\Scripts\Buff\HPCureBuffCfg.cs" />
     <Compile Include="Assets\Scripts\Buff\MoveSpeedBuff.cs" />
     <Compile Include="Assets\Scripts\Component\BuffComponent.cs" />
     <Compile Include="Assets\Scripts\Event\EventDef.cs" />

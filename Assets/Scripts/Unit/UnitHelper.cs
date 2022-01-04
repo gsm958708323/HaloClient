@@ -24,7 +24,8 @@ public static class UnitHelper
                 UnitType = type,
                 Name = "亚瑟",
                 Speed = 10,
-                PassiveSkill = new BuffType[] { },
+                Hp = 100,
+                PassiveSkill = new BuffType[] { BuffType.HPCure },
             };
         }
         else

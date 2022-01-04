@@ -8,14 +8,14 @@ using System.Collections.Generic;
 
 public static class BuffHelper
 {
-    public static BuffCfg GetBuffCfg(BuffType buffEnum)
+    public static BuffCfg GetBuffCfg(BuffType type)
     {
         BuffCfg buffCfg = null;
-        if (buffEnum == BuffType.MoveSpeed)
+        if (type == BuffType.MoveSpeed)
         {
             buffCfg = new MoveSpeedBuffCfg
             {
-                BuffEnum = buffEnum,
+                BuffEnum = type,
                 BuffName = "加速",
 
                 AttachType = BuffAttach.Caster,
@@ -28,24 +28,45 @@ public static class BuffHelper
                 AddPct = 30,
             };
         }
+        else if (type == BuffType.HPCure)
+        {
+            buffCfg = new HPCureBuffCfg
+            {
+                BuffEnum = type,
+                BuffName = "被动治疗",
+
+                AttachType = BuffAttach.Caster,
+
+                Delay = 0,
+                Interval = 2000,
+                Duration = -1,
+
+                //每秒回血2%
+                AddPct = 2,
+            };
+        }
         else
         {
-            UnityEngine.Debug.LogError($"buff配置不存在：{buffEnum}");
+            UnityEngine.Debug.LogError($"buff配置不存在：{type}");
 
         }
         return buffCfg;
     }
 
-    public static Buff CreateBuff(Unit from, BuffType buffEnum, Unit to=null, object[] args=null)
+    public static Buff CreateBuff(Unit from, BuffType type, Unit to = null, object[] args = null)
     {
         Buff buff = null;
-        if (buffEnum == BuffType.MoveSpeed)
+        if (type == BuffType.MoveSpeed)
         {
-            buff = new MoveSpeedBuff(from, to, buffEnum, args);
+            buff = new MoveSpeedBuff(from, to, type, args);
+        }
+        else if (type == BuffType.HPCure)
+        {
+            buff = new HPCureBuff(from, to, type, args);
         }
         else
         {
-            UnityEngine.Debug.LogError($"未定义buff类：{buffEnum}");
+            UnityEngine.Debug.LogError($"未定义buff类：{type}");
         }
         return buff;
     }

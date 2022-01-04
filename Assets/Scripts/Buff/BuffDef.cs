@@ -19,6 +19,7 @@ public enum BuffState
 public enum BuffType
 {
     MoveSpeed = 10110,
+    HPCure = 10100,
 }
 
 public static class BuffDef
