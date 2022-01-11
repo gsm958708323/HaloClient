@@ -1,0 +1,22 @@
+[
+  {
+    "ID": 10110,
+    "Name": "加速",
+    "Type": 0,
+    "Attach": 0,
+    "Delay": 0,
+    "Interval": 0,
+    "Duration": 1000,
+    "Param": 30
+  },
+  {
+    "ID": 10100,
+    "Name": "被动治疗",
+    "Type": 0,
+    "Attach": 0,
+    "Delay": 0,
+    "Interval": 2000,
+    "Duration": -1,
+    "Param": 2
+  }
+]

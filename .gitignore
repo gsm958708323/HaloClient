@@ -6569,3 +6569,5 @@ Temp/UnityTempFile-fbd5968f701b449448d3c77126645f54
 Temp/UnityTempFile-ff01e59088d54ce45b29f70202419d32
 Temp/UnityTempFile-ff822edfd74104f4aa18767d36291458
 Temp/__Backupscenes/0.backup
+obj/
+.vs/
