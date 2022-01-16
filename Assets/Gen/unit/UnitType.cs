@@ -6,15 +6,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace cfg.test
+namespace cfg.unit
 {
-    [System.Flags]
-    public enum AccessFlag
+    public enum UnitType
     {
-        WRITE = 1,
-        READ = 2,
-        TRUNCATE = 4,
-        NEW = 8,
-        READ_WRITE = WRITE|READ,
+        Hero = 1,
+        Soldier = 2,
     }
 }

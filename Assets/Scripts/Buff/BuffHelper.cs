@@ -5,69 +5,76 @@
 * ==============================================================================*/
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using cfg.buff;
 
 public static class BuffHelper
 {
-    public static BuffCfg GetBuffCfg(BuffType type)
+    public static BuffCfg GetBuffCfg(int ID)
     {
-        BuffCfg buffCfg = null;
-        if (type == BuffType.MoveSpeed)
+        var cfg = ConfigMgr.Instance.GetTables().TbBuff.GetOrDefault(ID);
+        if (cfg == null)
         {
-            buffCfg = new MoveSpeedBuffCfg
-            {
-                BuffEnum = type,
-                BuffName = "加速",
-
-                AttachType = BuffAttach.Caster,
-
-                Delay = 1000,
-                Interval = 1000,
-                Duration = -1,
-
-                //专有属性，提速30%
-                AddPct = 30,
-            };
-        }
-        else if (type == BuffType.HPCure)
-        {
-            buffCfg = new HPCureBuffCfg
-            {
-                BuffEnum = type,
-                BuffName = "被动治疗",
-
-                AttachType = BuffAttach.Caster,
-
-                Delay = 0,
-                Interval = 2000,
-                Duration = -1,
-
-                //每秒回血2%
-                AddPct = 2,
-            };
+            UnityEngine.Debug.LogError($"buff配置不存在：{ID}");
+            return null;
         }
         else
         {
-            UnityEngine.Debug.LogError($"buff配置不存在：{type}");
-
+            return cfg;
         }
-        return buffCfg;
     }
 
-    public static Buff CreateBuff(Unit from, BuffType type, Unit to = null, object[] args = null)
+    private static Dictionary<BuffType, Type> dictBuff2Class = new Dictionary<BuffType, Type>();
+    private static Dictionary<int, Buff> dictBuff2Inst = new Dictionary<int, Buff>();
+
+    public static void InitBuffCfg()
     {
-        Buff buff = null;
-        if (type == BuffType.MoveSpeed)
+        //获取程序集中所有buffcfg类的集合
+        Type[] types = Assembly.GetAssembly(typeof(Buff)).GetTypes();
+        foreach (Type type in types)
         {
-            buff = new MoveSpeedBuff(from, to, type, args);
+            //找到buffcfg的子类
+            if (!type.IsSubclassOf(typeof(Buff)))
+            {
+                continue;
+            }
+
+            var buffTypeAttr = type.GetCustomAttribute<BuffTypeAttribute>();
+            if (buffTypeAttr == null)
+            {
+                UnityEngine.Debug.LogError($"{type.Name} 未注册Buff类型");
+                continue;
+            }
+
+            //将子类定义的bufftype和类关联起来
+            dictBuff2Class.Add(buffTypeAttr.BuffType, type);
         }
-        else if (type == BuffType.HPCure)
+    }
+
+    public static Buff CreateBuff(int ID, Hero from, Hero to = null, object[] args = null)
+    {
+        Buff buff;
+        dictBuff2Inst.TryGetValue(ID, out buff);
+        if (buff != null)
         {
-            buff = new HPCureBuff(from, to, type, args);
+            return buff;
+        }
+
+        var cfg = GetBuffCfg(ID);
+        Type buffCls;
+        dictBuff2Class.TryGetValue(cfg.Type, out buffCls);
+        if (buffCls != null)
+        {
+            //将类实例化
+            buff = Activator.CreateInstance(buffCls, ID, from, to, args) as Buff;
+
+            dictBuff2Inst.Add(ID, buff);
+            return buff;
         }
         else
         {
-            UnityEngine.Debug.LogError($"未定义buff类：{type}");
+            UnityEngine.Debug.LogError($"未定义buff类：{cfg.Type}");
+            return null;
         }
-        return buff;
     }
 }

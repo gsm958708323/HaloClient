@@ -5,22 +5,16 @@
 * ==============================================================================*/
 using System;
 using System.Collections.Generic;
+using cfg.buff;
 
-public class MoveSpeedBuffCfg : BuffCfg
-{
-    /// <summary>
-    /// 增加速度百分比
-    /// </summary>
-    public int AddPct;
-}
-
+[BuffType(BuffType.MoveSpeed)]
 public class MoveSpeedBuff : Buff
 {
     private int speedChange;
-    private Unit target;
+    private Hero target;
 
-    public MoveSpeedBuff(Unit from, Unit to, BuffType buffEnum, object[] args)
-        : base(from, to, buffEnum, args)
+    public MoveSpeedBuff(int ID, Hero from, Hero to, object[] args)
+        : base(ID, from, to, args)
     {
 
     }
@@ -28,9 +22,9 @@ public class MoveSpeedBuff : Buff
     public override void Start()
     {
         base.Start();
-        MoveSpeedBuffCfg speedCfg = (MoveSpeedBuffCfg)Cfg;
-        target = (speedCfg.AttachType == BuffAttach.Target) ? to : from;
-        speedChange = target.GetSpeed() * speedCfg.AddPct / 100;
+
+        target = (Cfg.Attach == BuffAttach.Target) ? to : from;
+        speedChange = target.GetSpeed() * Cfg.Param / 100;
 
         target.ModifySpeed(speedChange);
     }

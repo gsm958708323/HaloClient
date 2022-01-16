@@ -1,0 +1,26 @@
+[
+  {
+    "ID": 1001,
+    "Name": "亚瑟",
+    "Type": 1,
+    "ActiveSkill": [],
+    "PassiveSkill": [
+      10110
+    ],
+    "Hp": 6500,
+    "Def": 100,
+    "MoveSpeed": 5
+  },
+  {
+    "ID": 1002,
+    "Name": "后裔",
+    "Type": 2,
+    "ActiveSkill": [],
+    "PassiveSkill": [
+      10100
+    ],
+    "Hp": 3000,
+    "Def": 100,
+    "MoveSpeed": 5
+  }
+]

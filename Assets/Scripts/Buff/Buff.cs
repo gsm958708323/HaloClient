@@ -5,15 +5,15 @@
 * ==============================================================================*/
 using System;
 using System.Collections.Generic;
+using cfg.buff;
 
 public abstract class Buff
 {
-
     public BuffCfg Cfg;
 
-    protected Unit from;
-    protected Unit to;
-    protected BuffType buffEnum;
+    protected Hero from;
+    protected Hero to;
+    protected int ID;
     protected object[] args;
 
     BuffState state = BuffState.None;
@@ -21,13 +21,13 @@ public abstract class Buff
     int durationCount;
     int intervalCount;
 
-    public Buff(Unit from, Unit to, BuffType buffEnum, object[] args)
+    public Buff(int ID, Hero from, Hero to, object[] args)
     {
         this.from = from;
         this.to = to;
-        this.buffEnum = buffEnum;
+        this.ID = ID;
         this.args = args;
-        this.Cfg = BuffHelper.GetBuffCfg(buffEnum);
+        this.Cfg = BuffHelper.GetBuffCfg(ID);
     }
 
     public void LogicInit()

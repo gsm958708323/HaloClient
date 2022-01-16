@@ -6,25 +6,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace cfg.test
+namespace cfg.buff
 {
-    public enum ETestQuality
+    public enum BuffType
     {
         /// <summary>
-        /// 最高品质
+        /// 速度修饰
         /// </summary>
-        A = 1,
+        MoveSpeed = 1,
         /// <summary>
-        /// 黑色的
+        /// 治疗
         /// </summary>
-        B = 2,
+        HPCure = 2,
         /// <summary>
-        /// 蓝色的
+        /// 技能替换
         /// </summary>
-        C = 3,
-        /// <summary>
-        /// 最差品质
-        /// </summary>
-        D = 4,
+        ModifySkill = 3,
     }
 }

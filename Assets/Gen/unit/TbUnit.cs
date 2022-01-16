@@ -11,33 +11,33 @@ using SimpleJSON;
 
 
 
-namespace cfg.Skill
+namespace cfg.unit
 {
 
-public sealed class TbBuff
+public sealed class TbUnit
 {
-    private readonly Dictionary<int, Skill.Buff> _dataMap;
-    private readonly List<Skill.Buff> _dataList;
+    private readonly Dictionary<int, unit.UnitCfg> _dataMap;
+    private readonly List<unit.UnitCfg> _dataList;
     
-    public TbBuff(JSONNode _json)
+    public TbUnit(JSONNode _json)
     {
-        _dataMap = new Dictionary<int, Skill.Buff>();
-        _dataList = new List<Skill.Buff>();
+        _dataMap = new Dictionary<int, unit.UnitCfg>();
+        _dataList = new List<unit.UnitCfg>();
         
         foreach(JSONNode _row in _json.Children)
         {
-            var _v = Skill.Buff.DeserializeBuff(_row);
+            var _v = unit.UnitCfg.DeserializeUnitCfg(_row);
             _dataList.Add(_v);
             _dataMap.Add(_v.ID, _v);
         }
     }
 
-    public Dictionary<int, Skill.Buff> DataMap => _dataMap;
-    public List<Skill.Buff> DataList => _dataList;
+    public Dictionary<int, unit.UnitCfg> DataMap => _dataMap;
+    public List<unit.UnitCfg> DataList => _dataList;
 
-    public Skill.Buff GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
-    public Skill.Buff Get(int key) => _dataMap[key];
-    public Skill.Buff this[int key] => _dataMap[key];
+    public unit.UnitCfg GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public unit.UnitCfg Get(int key) => _dataMap[key];
+    public unit.UnitCfg this[int key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {

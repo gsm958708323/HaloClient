@@ -8,13 +8,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using cfg;
 
-public class ConfigTest : MonoBehaviour
+public class ConfigMgr : MonoBehaviour
 {
-    void Start()
+    public static ConfigMgr Instance;
+    Tables tables;
+
+    void Awake()
     {
+        Instance = this;
+
         //let data = JsHelpers.ReadAllText(UnityEngine.Application.dataPath + "GameData/" + f + ".json");
-        var tables = new cfg.Tables(file => SimpleJSON.JSON.Parse(
+        tables = new Tables(file => SimpleJSON.JSON.Parse(
                 File.ReadAllText($"{Application.dataPath}/../Gen/json/{file}.json")
             )
         );
@@ -22,8 +28,8 @@ public class ConfigTest : MonoBehaviour
         print($"{item.ID} {item.Name}");
     }
 
-    void Update()
+    public Tables GetTables()
     {
-
+        return tables;
     }
 }

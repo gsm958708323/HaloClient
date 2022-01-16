@@ -1,34 +1,23 @@
 ﻿using System.Collections;
 using UnityEngine;
+using cfg.unit;
 
-public class UnitCfg
-{
-    public UnitType UnitType;
-    public string Name;
-
-    public int Speed;
-    public int Hp;
-
-    /// <summary>
-    /// 主动技能
-    /// </summary>
-    public int[] ActiveSkill;
-    /// <summary>
-    /// 被动技能
-    /// </summary>
-    public BuffType[] PassiveSkill;
-
-}
-
-public class Unit
+public class Hero
 {
     public UnitType Type;
-    public UnitCfg Cfg;
+    public HeroCfg Cfg;
     //todo 改成组件挂载
     public BuffComponent BuffComponent;
 
     int speed;
     int hp;
+
+    int id;
+
+    public Hero(int id)
+    {
+        this.id = id;
+    }
 
     public void ModifySpeed(int speed)
     {
@@ -54,7 +43,7 @@ public class Unit
 
     public void Init()
     {
-        Cfg = UnitHelper.GetUnitCfg(Type);
+        Cfg = HeroHelper.GetHeroCfg(id);
         BuffComponent = new BuffComponent();
         BuffComponent.SetOwner(this);
     }
@@ -62,7 +51,7 @@ public class Unit
     public void Start()
     {
         hp = 50; // 模拟受伤回血
-        speed = Cfg.Speed;
+        speed = Cfg.MoveSpeed;
 
         BuffComponent.InitBuff();
     }

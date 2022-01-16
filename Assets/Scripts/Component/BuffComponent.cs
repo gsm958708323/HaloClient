@@ -5,13 +5,16 @@
 * ==============================================================================*/
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using cfg.buff;
 
 public class BuffComponent
 {
     List<Buff> buffList = new List<Buff>();
-    Unit unit;
+    Hero unit;
 
-    public void SetOwner(Unit unit)
+
+    public void SetOwner(Hero unit)
     {
         this.unit = unit;
     }
@@ -21,7 +24,7 @@ public class BuffComponent
     {
         foreach (Buff buff in buffList)
         {
-            if (buff.Cfg.BuffEnum == type)
+            if (buff.Cfg.Type == type)
             {
                 return buff;
             }
@@ -29,9 +32,9 @@ public class BuffComponent
         return null;
     }
 
-    public Buff CreateBuff(BuffType type, Unit to = null, object[] args = null)
+    public Buff CreateBuff(int id, Hero to = null, object[] args = null)
     {
-        Buff buff = BuffHelper.CreateBuff(unit, type, to, args);
+        Buff buff = BuffHelper.CreateBuff(id, unit, to, args);
         buff.LogicInit();
         buffList.Add(buff);
         return buff;
@@ -40,9 +43,9 @@ public class BuffComponent
     public void InitBuff()
     {
         //初始化被动buff
-        foreach (BuffType type in unit.Cfg.PassiveSkill)
+        foreach (int id in unit.Cfg.PassiveSkill)
         {
-            CreateBuff(type);//被动是施加给自己的
+            CreateBuff(id);//被动是施加给自己的
         }
     }
 

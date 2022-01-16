@@ -11,24 +11,24 @@ using SimpleJSON;
 
 
 
-namespace cfg.Skill
+namespace cfg.buff
 {
 
-public sealed class Buff :  Bright.Config.BeanBase 
+public sealed class BuffCfg :  Bright.Config.BeanBase 
 {
-    public Buff(JSONNode _json) 
+    public BuffCfg(JSONNode _json) 
     {
         { if(!_json["ID"].IsNumber) { throw new SerializationException(); }  ID = _json["ID"]; }
         { if(!_json["Name"].IsString) { throw new SerializationException(); }  Name = _json["Name"]; }
-        { if(!_json["Type"].IsNumber) { throw new SerializationException(); }  Type = _json["Type"]; }
-        { if(!_json["Attach"].IsNumber) { throw new SerializationException(); }  Attach = _json["Attach"]; }
+        { if(!_json["Type"].IsNumber) { throw new SerializationException(); }  Type = (buff.BuffType)_json["Type"].AsInt; }
+        { if(!_json["Attach"].IsNumber) { throw new SerializationException(); }  Attach = (buff.BuffAttach)_json["Attach"].AsInt; }
         { if(!_json["Delay"].IsNumber) { throw new SerializationException(); }  Delay = _json["Delay"]; }
         { if(!_json["Interval"].IsNumber) { throw new SerializationException(); }  Interval = _json["Interval"]; }
         { if(!_json["Duration"].IsNumber) { throw new SerializationException(); }  Duration = _json["Duration"]; }
         { if(!_json["Param"].IsNumber) { throw new SerializationException(); }  Param = _json["Param"]; }
     }
 
-    public Buff(int ID, string Name, int Type, int Attach, int Delay, int Interval, int Duration, int Param ) 
+    public BuffCfg(int ID, string Name, buff.BuffType Type, buff.BuffAttach Attach, int Delay, int Interval, int Duration, int Param ) 
     {
         this.ID = ID;
         this.Name = Name;
@@ -40,9 +40,9 @@ public sealed class Buff :  Bright.Config.BeanBase
         this.Param = Param;
     }
 
-    public static Buff DeserializeBuff(JSONNode _json)
+    public static BuffCfg DeserializeBuffCfg(JSONNode _json)
     {
-        return new Skill.Buff(_json);
+        return new buff.BuffCfg(_json);
     }
 
     public int ID { get; private set; }
@@ -50,11 +50,11 @@ public sealed class Buff :  Bright.Config.BeanBase
     /// <summary>
     /// 类别
     /// </summary>
-    public int Type { get; private set; }
+    public buff.BuffType Type { get; private set; }
     /// <summary>
     /// 作用类型
     /// </summary>
-    public int Attach { get; private set; }
+    public buff.BuffAttach Attach { get; private set; }
     /// <summary>
     /// 延迟
     /// </summary>
@@ -72,7 +72,7 @@ public sealed class Buff :  Bright.Config.BeanBase
     /// </summary>
     public int Param { get; private set; }
 
-    public const int __ID__ = -740697584;
+    public const int __ID__ = -2108463018;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)

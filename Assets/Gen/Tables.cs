@@ -13,20 +13,30 @@ namespace cfg
    
 public sealed class Tables
 {
-    public Skill.TbBuff TbBuff {get; }
+    public buff.TbBuff TbBuff {get; }
+    public unit.TbHero TbHero {get; }
+    public unit.TbUnit TbUnit {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
         var tables = new System.Collections.Generic.Dictionary<string, object>();
-        TbBuff = new Skill.TbBuff(loader("skill_tbbuff")); 
-        tables.Add("Skill.TbBuff", TbBuff);
+        TbBuff = new buff.TbBuff(loader("buff_tbbuff")); 
+        tables.Add("buff.TbBuff", TbBuff);
+        TbHero = new unit.TbHero(loader("unit_tbhero")); 
+        tables.Add("unit.TbHero", TbHero);
+        TbUnit = new unit.TbUnit(loader("unit_tbunit")); 
+        tables.Add("unit.TbUnit", TbUnit);
 
         TbBuff.Resolve(tables); 
+        TbHero.Resolve(tables); 
+        TbUnit.Resolve(tables); 
     }
 
     public void TranslateText(System.Func<string, string, string> translator)
     {
         TbBuff.TranslateText(translator); 
+        TbHero.TranslateText(translator); 
+        TbUnit.TranslateText(translator); 
     }
 }
 

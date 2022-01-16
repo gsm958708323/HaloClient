@@ -5,18 +5,15 @@
 * ==============================================================================*/
 using System;
 using System.Collections.Generic;
+using cfg.buff;
 
-public class HPCureBuffCfg : BuffCfg
-{
-    public int AddPct;
-}
-
+[BuffType(BuffType.HPCure)]
 public class HPCureBuff : Buff
 {
     private int change;
 
-    public HPCureBuff(Unit from, Unit to, BuffType buffEnum, object[] args)
-        : base(from, to, buffEnum, args)
+    public HPCureBuff(int ID, Hero from, Hero to, object[] args)
+        : base(ID, from, to, args)
     {
 
     }
@@ -24,8 +21,7 @@ public class HPCureBuff : Buff
     public override void Start()
     {
         base.Start();
-        HPCureBuffCfg hpCfg = (HPCureBuffCfg)Cfg;
-        change = from.Cfg.Hp * hpCfg.AddPct / 100;
+        change = from.Cfg.Hp * Cfg.Param / 100;
     }
 
     public override void Tick()

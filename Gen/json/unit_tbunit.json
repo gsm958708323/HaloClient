@@ -1,0 +1,18 @@
+[
+  {
+    "ID": 101,
+    "Name": "亚瑟",
+    "Type": 1,
+    "ResPath": "",
+    "Height": 0,
+    "ObjID": 1001
+  },
+  {
+    "ID": 102,
+    "Name": "后裔",
+    "Type": 1,
+    "ResPath": "",
+    "Height": 0,
+    "ObjID": 1002
+  }
+]

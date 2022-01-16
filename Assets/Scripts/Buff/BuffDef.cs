@@ -4,6 +4,7 @@
 * 创建日期：2022/1/3 16:14:54
 * ==============================================================================*/
 using System;
+using cfg.buff;
 using System.Collections.Generic;
 
 public enum BuffState
@@ -16,10 +17,14 @@ public enum BuffState
     End
 }
 
-public enum BuffType
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+public sealed class BuffTypeAttribute : Attribute
 {
-    MoveSpeed = 10110,
-    HPCure = 10100,
+    public BuffType BuffType { get; set; }
+    public BuffTypeAttribute(BuffType type)
+    {
+        this.BuffType = type;
+    }
 }
 
 public static class BuffDef

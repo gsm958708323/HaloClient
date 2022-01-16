@@ -10,16 +10,18 @@ using UnityEngine;
 
 public class FightMgr : MonoBehaviour
 {
-    Unit unit;
+    Hero unit;
 
     void Awake()
     {
-        unit = new Unit() { Type = UnitType.Yase };
-        unit.Init();
+        BuffHelper.InitBuffCfg();
     }
 
     void Start()
     {
+        unit = new Hero(1001);
+        unit.Init();
+
         unit.Start();
     }
 
