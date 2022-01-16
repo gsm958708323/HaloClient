@@ -5,9 +5,9 @@
     "Type": 1,
     "ActiveSkill": [],
     "PassiveSkill": [
-      10110
+      10100
     ],
-    "Hp": 6500,
+    "Hp": 100,
     "Def": 100,
     "MoveSpeed": 5
   },
@@ -19,7 +19,7 @@
     "PassiveSkill": [
       10100
     ],
-    "Hp": 3000,
+    "Hp": 100,
     "Def": 100,
     "MoveSpeed": 5
   }
