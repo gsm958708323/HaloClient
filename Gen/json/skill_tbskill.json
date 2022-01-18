@@ -1,0 +1,55 @@
+[
+  {
+    "ID": 1,
+    "Name": "Skill1",
+    "Cost": 0,
+    "Condition": 0,
+    "Buff": 0,
+    "TimeLine": [
+      {
+        "TimeElapsed": 1,
+        "Event": "1",
+        "Param": [
+          "1,1"
+        ]
+      },
+      {
+        "TimeElapsed": 2,
+        "Event": "2",
+        "Param": [
+          "2"
+        ]
+      },
+      {
+        "TimeElapsed": 3,
+        "Event": "3",
+        "Param": [
+          "3"
+        ]
+      }
+    ]
+  },
+  {
+    "ID": 2,
+    "Name": "Skill2",
+    "Cost": 0,
+    "Condition": 0,
+    "Buff": 0,
+    "TimeLine": [
+      {
+        "TimeElapsed": 1,
+        "Event": "stage1",
+        "Param": [
+          "stage desc1"
+        ]
+      },
+      {
+        "TimeElapsed": 2,
+        "Event": "stage2",
+        "Param": [
+          "stage desc2"
+        ]
+      }
+    ]
+  }
+]

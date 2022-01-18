@@ -61,6 +61,9 @@
     <Compile Include="Assets\Gen\buff\BuffCfg.cs" />
     <Compile Include="Assets\Gen\buff\BuffType.cs" />
     <Compile Include="Assets\Gen\buff\TbBuff.cs" />
+    <Compile Include="Assets\Gen\skill\SkillCfg.cs" />
+    <Compile Include="Assets\Gen\skill\TbSkill.cs" />
+    <Compile Include="Assets\Gen\skill\TimeNode.cs" />
     <Compile Include="Assets\Gen\unit\HeroCfg.cs" />
     <Compile Include="Assets\Gen\unit\HeroType.cs" />
     <Compile Include="Assets\Gen\unit\TbHero.cs" />
