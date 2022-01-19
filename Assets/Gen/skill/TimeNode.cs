@@ -23,10 +23,10 @@ public sealed class TimeNode :  Bright.Config.BeanBase
     {
         { if(!_json["TimeElapsed"].IsNumber) { throw new SerializationException(); }  TimeElapsed = _json["TimeElapsed"]; }
         { if(!_json["Event"].IsString) { throw new SerializationException(); }  Event = _json["Event"]; }
-        { var _json1 = _json["Param"]; if(!_json1.IsArray) { throw new SerializationException(); } Param = new System.Collections.Generic.List<string>(_json1.Count); foreach(JSONNode __e in _json1.Children) { string __v;  { if(!__e.IsString) { throw new SerializationException(); }  __v = __e; }  Param.Add(__v); }   }
+        { if(!_json["Param"].IsObject) { throw new SerializationException(); }  Param = skill.SkillEvent.DeserializeSkillEvent(_json["Param"]); }
     }
 
-    public TimeNode(int TimeElapsed, string Event, System.Collections.Generic.List<string> Param ) 
+    public TimeNode(int TimeElapsed, string Event, skill.SkillEvent Param ) 
     {
         this.TimeElapsed = TimeElapsed;
         this.Event = Event;
@@ -40,17 +40,19 @@ public sealed class TimeNode :  Bright.Config.BeanBase
 
     public int TimeElapsed { get; private set; }
     public string Event { get; private set; }
-    public System.Collections.Generic.List<string> Param { get; private set; }
+    public skill.SkillEvent Param { get; private set; }
 
     public const int __ID__ = 1527438732;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)
     {
+        Param?.Resolve(_tables);
     }
 
     public  void TranslateText(System.Func<string, string, string> translator)
     {
+        Param?.TranslateText(translator);
     }
 
     public override string ToString()
@@ -58,7 +60,7 @@ public sealed class TimeNode :  Bright.Config.BeanBase
         return "{ "
         + "TimeElapsed:" + TimeElapsed + ","
         + "Event:" + Event + ","
-        + "Param:" + Bright.Common.StringUtil.CollectionToString(Param) + ","
+        + "Param:" + Param + ","
         + "}";
     }
     }

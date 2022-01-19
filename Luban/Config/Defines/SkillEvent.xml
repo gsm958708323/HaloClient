@@ -1,0 +1,15 @@
+<module name="skill">
+
+    <bean name="SkillEvent">
+        <bean name="TestEvent">
+            <var name="test1" type="int" />
+            <var name="test2" type="string" />
+        </bean>
+
+        <bean name="TestEvent2">
+            <var name="test1" type="int" />
+            <var name="test2" type="bool" />
+        </bean>
+    </bean>
+
+</module>

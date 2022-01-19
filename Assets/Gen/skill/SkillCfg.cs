@@ -41,20 +41,11 @@ public sealed class SkillCfg :  Bright.Config.BeanBase
         return new skill.SkillCfg(_json);
     }
 
-    /// <summary>
-    /// id
-    /// </summary>
     public int ID { get; private set; }
-    /// <summary>
-    /// desc
-    /// </summary>
     public string Name { get; private set; }
     public int Cost { get; private set; }
     public int Condition { get; private set; }
     public int Buff { get; private set; }
-    /// <summary>
-    /// TimeElapsed
-    /// </summary>
     public System.Collections.Generic.List<skill.TimeNode> TimeLine { get; private set; }
 
     public const int __ID__ = 1452435312;
