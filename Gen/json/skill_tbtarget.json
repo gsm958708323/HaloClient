@@ -1,0 +1,14 @@
+[
+  {
+    "ID": 100101,
+    "TargetType": 2,
+    "UnitType": [
+      1,
+      2,
+      3
+    ],
+    "RuleType": 3,
+    "SelectRange": 2,
+    "SearchDis": 10
+  }
+]
