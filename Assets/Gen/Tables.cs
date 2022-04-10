@@ -17,6 +17,7 @@ public sealed class Tables
     public unit.TbHero TbHero {get; }
     public unit.TbUnit TbUnit {get; }
     public skill.TbSkill TbSkill {get; }
+    public skill.TbTarget TbTarget {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
@@ -29,11 +30,14 @@ public sealed class Tables
         tables.Add("unit.TbUnit", TbUnit);
         TbSkill = new skill.TbSkill(loader("skill_tbskill")); 
         tables.Add("skill.TbSkill", TbSkill);
+        TbTarget = new skill.TbTarget(loader("skill_tbtarget")); 
+        tables.Add("skill.TbTarget", TbTarget);
 
         TbBuff.Resolve(tables); 
         TbHero.Resolve(tables); 
         TbUnit.Resolve(tables); 
         TbSkill.Resolve(tables); 
+        TbTarget.Resolve(tables); 
     }
 
     public void TranslateText(System.Func<string, string, string> translator)
@@ -42,6 +46,7 @@ public sealed class Tables
         TbHero.TranslateText(translator); 
         TbUnit.TranslateText(translator); 
         TbSkill.TranslateText(translator); 
+        TbTarget.TranslateText(translator); 
     }
 }
 

@@ -5,7 +5,7 @@
     "Type": 1,
     "ActiveSkill": [],
     "PassiveSkill": [
-      10100
+      100102
     ],
     "Hp": 100,
     "Def": 100,
@@ -17,7 +17,7 @@
     "Type": 2,
     "ActiveSkill": [],
     "PassiveSkill": [
-      10100
+      100101
     ],
     "Hp": 100,
     "Def": 100,

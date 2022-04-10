@@ -12,5 +12,6 @@ namespace cfg.unit
     {
         Hero = 1,
         Soldier = 2,
+        Tower = 3,
     }
 }

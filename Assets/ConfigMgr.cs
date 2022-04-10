@@ -24,7 +24,7 @@ public class ConfigMgr : MonoBehaviour
                 File.ReadAllText($"{Application.dataPath}/../Gen/json/{file}.json")
             )
         );
-        var item = tables.TbBuff.Get(10110);
+        var item = tables.TbBuff.Get(100101);
         print($"{item.ID} {item.Name}");
     }
 

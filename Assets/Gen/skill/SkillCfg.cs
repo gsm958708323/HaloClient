@@ -20,20 +20,40 @@ public sealed class SkillCfg :  Bright.Config.BeanBase
     {
         { if(!_json["ID"].IsNumber) { throw new SerializationException(); }  ID = _json["ID"]; }
         { if(!_json["Name"].IsString) { throw new SerializationException(); }  Name = _json["Name"]; }
-        { if(!_json["Cost"].IsNumber) { throw new SerializationException(); }  Cost = _json["Cost"]; }
-        { if(!_json["Condition"].IsNumber) { throw new SerializationException(); }  Condition = _json["Condition"]; }
-        { if(!_json["Buff"].IsNumber) { throw new SerializationException(); }  Buff = _json["Buff"]; }
-        { var _json1 = _json["TimeLine"]; if(!_json1.IsArray) { throw new SerializationException(); } TimeLine = new System.Collections.Generic.List<skill.TimeNode>(_json1.Count); foreach(JSONNode __e in _json1.Children) { skill.TimeNode __v;  { if(!__e.IsObject) { throw new SerializationException(); }  __v = skill.TimeNode.DeserializeTimeNode(__e); }  TimeLine.Add(__v); }   }
+        { if(!_json["ReleaseType"].IsNumber) { throw new SerializationException(); }  ReleaseType = (skill.ReleaseType)_json["ReleaseType"].AsInt; }
+        { if(!_json["Damage"].IsNumber) { throw new SerializationException(); }  Damage = _json["Damage"]; }
+        { if(!_json["TargetCfg"].IsNumber) { throw new SerializationException(); }  TargetCfg = _json["TargetCfg"]; }
+        { if(!_json["BulletCfg"].IsNumber) { throw new SerializationException(); }  BulletCfg = _json["BulletCfg"]; }
+        { var _json1 = _json["BuffList"]; if(!_json1.IsArray) { throw new SerializationException(); } BuffList = new System.Collections.Generic.List<int>(_json1.Count); foreach(JSONNode __e in _json1.Children) { int __v;  { if(!__e.IsNumber) { throw new SerializationException(); }  __v = __e; }  BuffList.Add(__v); }   }
+        { if(!_json["CdTime"].IsNumber) { throw new SerializationException(); }  CdTime = _json["CdTime"]; }
+        { if(!_json["SpellTime"].IsNumber) { throw new SerializationException(); }  SpellTime = _json["SpellTime"]; }
+        { if(!_json["SkillTime"].IsNumber) { throw new SerializationException(); }  SkillTime = _json["SkillTime"]; }
+        { if(!_json["IsNormalAttack"].IsBoolean) { throw new SerializationException(); }  IsNormalAttack = _json["IsNormalAttack"]; }
+        { if(!_json["IconName"].IsString) { throw new SerializationException(); }  IconName = _json["IconName"]; }
+        { if(!_json["AnimName"].IsString) { throw new SerializationException(); }  AnimName = _json["AnimName"]; }
+        { if(!_json["AudioStart"].IsString) { throw new SerializationException(); }  AudioStart = _json["AudioStart"]; }
+        { if(!_json["AudioWork"].IsString) { throw new SerializationException(); }  AudioWork = _json["AudioWork"]; }
+        { if(!_json["AudioHit"].IsString) { throw new SerializationException(); }  AudioHit = _json["AudioHit"]; }
     }
 
-    public SkillCfg(int ID, string Name, int Cost, int Condition, int Buff, System.Collections.Generic.List<skill.TimeNode> TimeLine ) 
+    public SkillCfg(int ID, string Name, skill.ReleaseType ReleaseType, int Damage, int TargetCfg, int BulletCfg, System.Collections.Generic.List<int> BuffList, int CdTime, int SpellTime, int SkillTime, bool IsNormalAttack, string IconName, string AnimName, string AudioStart, string AudioWork, string AudioHit ) 
     {
         this.ID = ID;
         this.Name = Name;
-        this.Cost = Cost;
-        this.Condition = Condition;
-        this.Buff = Buff;
-        this.TimeLine = TimeLine;
+        this.ReleaseType = ReleaseType;
+        this.Damage = Damage;
+        this.TargetCfg = TargetCfg;
+        this.BulletCfg = BulletCfg;
+        this.BuffList = BuffList;
+        this.CdTime = CdTime;
+        this.SpellTime = SpellTime;
+        this.SkillTime = SkillTime;
+        this.IsNormalAttack = IsNormalAttack;
+        this.IconName = IconName;
+        this.AnimName = AnimName;
+        this.AudioStart = AudioStart;
+        this.AudioWork = AudioWork;
+        this.AudioHit = AudioHit;
     }
 
     public static SkillCfg DeserializeSkillCfg(JSONNode _json)
@@ -43,22 +63,30 @@ public sealed class SkillCfg :  Bright.Config.BeanBase
 
     public int ID { get; private set; }
     public string Name { get; private set; }
-    public int Cost { get; private set; }
-    public int Condition { get; private set; }
-    public int Buff { get; private set; }
-    public System.Collections.Generic.List<skill.TimeNode> TimeLine { get; private set; }
+    public skill.ReleaseType ReleaseType { get; private set; }
+    public int Damage { get; private set; }
+    public int TargetCfg { get; private set; }
+    public int BulletCfg { get; private set; }
+    public System.Collections.Generic.List<int> BuffList { get; private set; }
+    public int CdTime { get; private set; }
+    public int SpellTime { get; private set; }
+    public int SkillTime { get; private set; }
+    public bool IsNormalAttack { get; private set; }
+    public string IconName { get; private set; }
+    public string AnimName { get; private set; }
+    public string AudioStart { get; private set; }
+    public string AudioWork { get; private set; }
+    public string AudioHit { get; private set; }
 
     public const int __ID__ = 1452435312;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)
     {
-        foreach(var _e in TimeLine) { _e?.Resolve(_tables); }
     }
 
     public  void TranslateText(System.Func<string, string, string> translator)
     {
-        foreach(var _e in TimeLine) { _e?.TranslateText(translator); }
     }
 
     public override string ToString()
@@ -66,10 +94,20 @@ public sealed class SkillCfg :  Bright.Config.BeanBase
         return "{ "
         + "ID:" + ID + ","
         + "Name:" + Name + ","
-        + "Cost:" + Cost + ","
-        + "Condition:" + Condition + ","
-        + "Buff:" + Buff + ","
-        + "TimeLine:" + Bright.Common.StringUtil.CollectionToString(TimeLine) + ","
+        + "ReleaseType:" + ReleaseType + ","
+        + "Damage:" + Damage + ","
+        + "TargetCfg:" + TargetCfg + ","
+        + "BulletCfg:" + BulletCfg + ","
+        + "BuffList:" + Bright.Common.StringUtil.CollectionToString(BuffList) + ","
+        + "CdTime:" + CdTime + ","
+        + "SpellTime:" + SpellTime + ","
+        + "SkillTime:" + SkillTime + ","
+        + "IsNormalAttack:" + IsNormalAttack + ","
+        + "IconName:" + IconName + ","
+        + "AnimName:" + AnimName + ","
+        + "AudioStart:" + AudioStart + ","
+        + "AudioWork:" + AudioWork + ","
+        + "AudioHit:" + AudioHit + ","
         + "}";
     }
     }

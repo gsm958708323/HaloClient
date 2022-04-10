@@ -2,7 +2,7 @@
 using UnityEngine;
 using cfg.unit;
 
-public class Hero
+public class Hero : Unit
 {
     public UnitType Type;
     public HeroCfg Cfg;

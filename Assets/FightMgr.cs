@@ -7,13 +7,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using cfg.unit;
 
 public class FightMgr : MonoBehaviour
 {
+    public static FightMgr Instance;
+
     Hero unit;
+    // todo 添加
+    // { camptype: { unitType: [unit1, unit2, ] } }
+    Dictionary<CampType, Dictionary<UnitType, List<Unit>>> dictAllUnit = new Dictionary<CampType, Dictionary<UnitType, List<Unit>>>();
 
     void Awake()
     {
+        Instance = this;
         BuffHelper.InitBuffCfg();
     }
 
@@ -34,5 +41,22 @@ public class FightMgr : MonoBehaviour
         //}
 
         unit.Tick();
+    }
+
+    public List<Unit> TryGetTargetList(CampType campType, UnitType unitType)
+    {
+        Dictionary<UnitType, List<Unit>> dictUnitList;
+        if (!dictAllUnit.TryGetValue(campType, out dictUnitList))
+        {
+            return null;
+        }
+
+
+        List<Unit> listUnit;
+        if (!dictUnitList.TryGetValue(unitType, out listUnit))
+        {
+            return null;
+        }
+        return listUnit;
     }
 }
