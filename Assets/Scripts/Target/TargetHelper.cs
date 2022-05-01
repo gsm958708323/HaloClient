@@ -32,10 +32,10 @@ public static class TargetHelper
         List<Unit> listAllUnit = new List<Unit>();
         foreach (UnitType unitType in cfg.UnitType)
         {
-            var listUnit = FightMgr.Instance.TryGetTargetList(targetCamp, unitType);
-            if (listUnit != null)
+            var unitList = FightMgr.Instance.TryGetTargetList(targetCamp, unitType);
+            if (unitList != null)
             {
-                listAllUnit.AddRange(listUnit);
+                listAllUnit.AddRange(unitList);
             }
         }
 
@@ -57,43 +57,43 @@ public static class TargetHelper
     /// <returns></returns>
     public static List<Unit> FindTargetByRule(Unit self, TargetCfg cfg)
     {
-        var listUnit = TryGetTargetList(self, cfg);
-        if (listUnit == null)
+        var unitList = TryGetTargetList(self, cfg);
+        if (unitList == null)
         {
             return null;
         }
 
 
-        listUnit = FliterByRule(self, listUnit, cfg);
-        if (listUnit == null)
+        unitList = FliterByRule(self, unitList, cfg);
+        if (unitList == null)
         {
             return null;
         }
-        return listUnit;
+        return unitList;
     }
 
     /// <summary>
     /// 根据规则过滤目标集合
     /// </summary>
-    /// <param name="listUnit"></param>
+    /// <param name="unitList"></param>
     /// <param name="cfg"></param>
     /// <returns></returns>
 
-    static List<Unit> FliterByRule(Unit self, List<Unit> listUnit, TargetCfg cfg)
+    static List<Unit> FliterByRule(Unit self, List<Unit> unitList, TargetCfg cfg)
     {
         //判断查找目标是单人还是多人
         if (cfg.RuleType == TargetSelectRule.TargetClosestSingle)
         {
-            return FliterByClosest(self, listUnit, cfg);
+            return FliterByClosest(self, unitList, cfg);
         }
         return null;
     }
 
-    static List<Unit> FliterByClosest(Unit self, List<Unit> listUnit, TargetCfg cfg)
+    static List<Unit> FliterByClosest(Unit self, List<Unit> unitList, TargetCfg cfg)
     {
         float minDis = int.MaxValue;
         Unit target = null;
-        foreach (var unit in listUnit)
+        foreach (var unit in unitList)
         {
             if (unit.IsDead())
             {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using cfg.buff;
 
-public class BuffComponent
+public class BuffComponent : Ilogic
 {
     List<Buff> buffList = new List<Buff>();
     Hero unit;
@@ -40,7 +40,7 @@ public class BuffComponent
         return buff;
     }
 
-    public void InitBuff()
+    public void LogicStart()
     {
         //初始化被动buff
         foreach (int id in unit.Cfg.PassiveSkill)
@@ -49,7 +49,7 @@ public class BuffComponent
         }
     }
 
-    public void TickBuff()
+    public void LogicTick()
     {
         for (int i = 0; i < buffList.Count; i++)
         {
@@ -62,5 +62,9 @@ public class BuffComponent
                 buffList[i].LogicTick();
             }
         }
+    }
+
+    public void LogicEnd()
+    {
     }
 }

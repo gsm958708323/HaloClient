@@ -8,10 +8,10 @@ public class Hero : Unit
     public HeroCfg Cfg;
     //todo 改成组件挂载
     public BuffComponent BuffComponent;
+    public MoveComponent MoveComponent;
 
     int speed;
     int hp;
-
     int id;
 
     public Hero(int id)
@@ -44,6 +44,8 @@ public class Hero : Unit
     public void Init()
     {
         Cfg = HeroHelper.GetHeroCfg(id);
+        MoveComponent = new MoveComponent();
+
         BuffComponent = new BuffComponent();
         BuffComponent.SetOwner(this);
     }
@@ -53,16 +55,19 @@ public class Hero : Unit
         hp = 50; // 模拟受伤回血
         speed = Cfg.MoveSpeed;
 
-        BuffComponent.InitBuff();
-    }
-
-    public void End()
-    {
-
+        MoveComponent.LogicStart();
+        BuffComponent.LogicStart();
     }
 
     public void Tick()
     {
-        BuffComponent.TickBuff();
+        MoveComponent.LogicTick();
+        BuffComponent.LogicTick();
+    }
+
+    public void End()
+    {
+        MoveComponent.LogicEnd();
+        BuffComponent.LogicEnd();
     }
 }
