@@ -15,7 +15,6 @@ public class FightMgr : MonoBehaviour
     public static FightMgr Instance;
 
     Hero unit;
-    // todo 添加
     // { camptype: { unitType: [unit1, unit2, ] } } 阵营 - 类型 - 对象
     Dictionary<CampType, Dictionary<UnitType, List<Unit>>> allUnitDict = new Dictionary<CampType, Dictionary<UnitType, List<Unit>>>();
 
@@ -80,17 +79,17 @@ public class FightMgr : MonoBehaviour
     /// <param name="hero"></param>
     void AddUnitDict(Hero hero)
     {
-        var data = hero.HeroData;
+        //var data = hero.HeroData;
 
-        // { camptype: { unitType:[unit1, unit2,] } }
-        if (!allUnitDict.TryGetValue(data.CampType, out Dictionary<UnitType, List<Unit>> campDict))
+        if (!allUnitDict.TryGetValue(hero.CampType, out Dictionary<UnitType, List<Unit>> campDict))
         {
             campDict = new Dictionary<UnitType, List<Unit>>();
+            allUnitDict[hero.CampType] = campDict;
 
-            //List<Unit> unitList;
             if (!campDict.TryGetValue(hero.UnitType, out List<Unit> unitList))
             {
                 unitList = new List<Unit>();
+                campDict[hero.UnitType] = unitList;
             }
         }
         
@@ -103,9 +102,10 @@ public class FightMgr : MonoBehaviour
         if (string.IsNullOrEmpty(path))
             return;
 
-        //Hero预制体与Unit关联
-        //hero移动:ViewUnit，遥感输入 -- 修改位置数据 -- 更新显示层
         var go = ResMgr.Instance.LoadPrefab(path);
+        if (go == null)
+            return;
+
         UnitView view = go.GetComponent<UnitView>();
         view.LogicInit(hero);
     }

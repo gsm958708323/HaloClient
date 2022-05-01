@@ -35,7 +35,7 @@ public class ConfigMgr : MonoBehaviour
 
     public cfg.unit.HeroCfg GetHeroCfg(int id)
     {
-        var cfg = ConfigMgr.Instance.GetTables().TbHero.GetOrDefault(id);
+        var cfg = tables.TbHero.GetOrDefault(id);
         if (cfg == null)
         {
             UnityEngine.Debug.LogError($"未找到Hero：{id}");
@@ -49,7 +49,7 @@ public class ConfigMgr : MonoBehaviour
 
     public cfg.unit.UnitCfg GetUnitCfg(int id)
     {
-        var cfg = ConfigMgr.Instance.GetTables().TbUnit.GetOrDefault(id);
+        var cfg = tables.TbUnit.GetOrDefault(id);
         if (cfg == null)
         {
             UnityEngine.Debug.LogError($"未找到Unit：{id}");

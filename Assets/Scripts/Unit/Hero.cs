@@ -7,11 +7,6 @@ public class Hero : Unit
     public HeroCfg HeroCfg;
     public UnitCfg UnitCfg;
 
-    /// <summary>
-    /// 网络数据
-    /// </summary>
-    public HeroData HeroData;
-
     //todo 改成组件挂载
     public BuffComponent BuffComponent;
     public MoveComponent MoveComponent;
@@ -20,14 +15,9 @@ public class Hero : Unit
     int hp;
     int id;
 
-    public Hero(HeroData data)
+    public Hero(HeroData data) : base(data)
     {
         id = data.HeroID;
-        HeroData = data;
-        BornPos = data.BornPos;
-        CampType = data.CampType;
-
-        UnitType = UnitCfg.Type;
     }
 
     public void ModifySpeed(int speed)
@@ -56,8 +46,9 @@ public class Hero : Unit
     {
         HeroCfg = ConfigMgr.Instance.GetHeroCfg(id);
         UnitCfg = ConfigMgr.Instance.GetUnitCfg(HeroCfg.UnitID);
-        MoveComponent = new MoveComponent();
+        UnitType = UnitCfg.Type;
 
+        MoveComponent = new MoveComponent();
         BuffComponent = new BuffComponent();
         BuffComponent.SetOwner(this);
     }

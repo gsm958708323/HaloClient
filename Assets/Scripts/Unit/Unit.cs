@@ -12,10 +12,19 @@ public enum UnitState
 public class Unit
 {
     public CampType CampType;
+    public Vector3 BornPos;
+    public bool IsLocal;
+
     public UnitType UnitType;
     public UnitState unitState;
     public int boxRadius;
-    public Vector3 BornPos;
+
+    public Unit(UnitData data)
+    {
+        BornPos = data.BornPos;
+        CampType = data.CampType;
+        IsLocal = data.IsLocal;
+    }
 
     public bool IsDead()
     {
