@@ -3,16 +3,14 @@
     "ID": 101,
     "Name": "亚瑟",
     "Type": 1,
-    "ResPath": "",
-    "Height": 0,
-    "ObjID": 1001
+    "ResPath": "Resources/ResChars/Arthur.prefab",
+    "Height": 0
   },
   {
     "ID": 102,
     "Name": "后裔",
     "Type": 1,
-    "ResPath": "",
-    "Height": 0,
-    "ObjID": 1002
+    "ResPath": "Resources/ResChars/Houyi.prefab",
+    "Height": 0
   }
 ]

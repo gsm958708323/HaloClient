@@ -19,6 +19,7 @@ public sealed class HeroCfg :  Bright.Config.BeanBase
     public HeroCfg(JSONNode _json) 
     {
         { if(!_json["ID"].IsNumber) { throw new SerializationException(); }  ID = _json["ID"]; }
+        { if(!_json["UnitID"].IsNumber) { throw new SerializationException(); }  UnitID = _json["UnitID"]; }
         { if(!_json["Name"].IsString) { throw new SerializationException(); }  Name = _json["Name"]; }
         { if(!_json["Type"].IsNumber) { throw new SerializationException(); }  Type = (unit.HeroType)_json["Type"].AsInt; }
         { var _json1 = _json["ActiveSkill"]; if(!_json1.IsArray) { throw new SerializationException(); } ActiveSkill = new System.Collections.Generic.List<int>(_json1.Count); foreach(JSONNode __e in _json1.Children) { int __v;  { if(!__e.IsNumber) { throw new SerializationException(); }  __v = __e; }  ActiveSkill.Add(__v); }   }
@@ -28,9 +29,10 @@ public sealed class HeroCfg :  Bright.Config.BeanBase
         { if(!_json["MoveSpeed"].IsNumber) { throw new SerializationException(); }  MoveSpeed = _json["MoveSpeed"]; }
     }
 
-    public HeroCfg(int ID, string Name, unit.HeroType Type, System.Collections.Generic.List<int> ActiveSkill, System.Collections.Generic.List<int> PassiveSkill, int Hp, int Def, int MoveSpeed ) 
+    public HeroCfg(int ID, int UnitID, string Name, unit.HeroType Type, System.Collections.Generic.List<int> ActiveSkill, System.Collections.Generic.List<int> PassiveSkill, int Hp, int Def, int MoveSpeed ) 
     {
         this.ID = ID;
+        this.UnitID = UnitID;
         this.Name = Name;
         this.Type = Type;
         this.ActiveSkill = ActiveSkill;
@@ -46,6 +48,7 @@ public sealed class HeroCfg :  Bright.Config.BeanBase
     }
 
     public int ID { get; private set; }
+    public int UnitID { get; private set; }
     public string Name { get; private set; }
     public unit.HeroType Type { get; private set; }
     public System.Collections.Generic.List<int> ActiveSkill { get; private set; }
@@ -69,6 +72,7 @@ public sealed class HeroCfg :  Bright.Config.BeanBase
     {
         return "{ "
         + "ID:" + ID + ","
+        + "UnitID:" + UnitID + ","
         + "Name:" + Name + ","
         + "Type:" + Type + ","
         + "ActiveSkill:" + Bright.Common.StringUtil.CollectionToString(ActiveSkill) + ","

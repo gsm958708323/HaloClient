@@ -102,7 +102,7 @@ public static class TargetHelper
 
             int sumRadius = self.boxRadius + unit.boxRadius;
             //两点之间距离减去半径和
-            float dis = (self.Pos - unit.Pos).magnitude - sumRadius;
+            float dis = (self.BornPos - unit.BornPos).magnitude - sumRadius;
             if (dis < minDis)
             {
                 target = unit;

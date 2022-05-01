@@ -7,25 +7,7 @@ using System;
 using System.Collections.Generic;
 using cfg.unit;
 
-public enum UnitType
-{
-    Yase,
-    Houyi,
-}
 
 public static class HeroHelper
 {
-    public static HeroCfg GetHeroCfg(int id)
-    {
-        var cfg = ConfigMgr.Instance.GetTables().TbHero.GetOrDefault(id);
-        if (cfg == null)
-        {
-            UnityEngine.Debug.LogError($"未找到Hero：{id}");
-            return null;
-        }
-        else
-        {
-            return cfg;
-        }
-    }
 }

@@ -23,17 +23,15 @@ public sealed class UnitCfg :  Bright.Config.BeanBase
         { if(!_json["Type"].IsNumber) { throw new SerializationException(); }  Type = (unit.UnitType)_json["Type"].AsInt; }
         { if(!_json["ResPath"].IsString) { throw new SerializationException(); }  ResPath = _json["ResPath"]; }
         { if(!_json["Height"].IsNumber) { throw new SerializationException(); }  Height = _json["Height"]; }
-        { if(!_json["ObjID"].IsNumber) { throw new SerializationException(); }  ObjID = _json["ObjID"]; }
     }
 
-    public UnitCfg(int ID, string Name, unit.UnitType Type, string ResPath, int Height, int ObjID ) 
+    public UnitCfg(int ID, string Name, unit.UnitType Type, string ResPath, int Height ) 
     {
         this.ID = ID;
         this.Name = Name;
         this.Type = Type;
         this.ResPath = ResPath;
         this.Height = Height;
-        this.ObjID = ObjID;
     }
 
     public static UnitCfg DeserializeUnitCfg(JSONNode _json)
@@ -46,7 +44,6 @@ public sealed class UnitCfg :  Bright.Config.BeanBase
     public unit.UnitType Type { get; private set; }
     public string ResPath { get; private set; }
     public int Height { get; private set; }
-    public int ObjID { get; private set; }
 
     public const int __ID__ = -600748618;
     public override int GetTypeId() => __ID__;
@@ -67,7 +64,6 @@ public sealed class UnitCfg :  Bright.Config.BeanBase
         + "Type:" + Type + ","
         + "ResPath:" + ResPath + ","
         + "Height:" + Height + ","
-        + "ObjID:" + ObjID + ","
         + "}";
     }
     }

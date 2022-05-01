@@ -21,7 +21,7 @@ public class HPCureBuff : Buff
     public override void Start()
     {
         base.Start();
-        change = from.Cfg.Hp * Cfg.Param / 100;
+        change = from.HeroCfg.Hp * Cfg.Param / 100;
     }
 
     public override void Tick()

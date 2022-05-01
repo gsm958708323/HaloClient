@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\Manager\ConfigMgr.cs" />
     <Compile Include="Assets\Scripts\Manager\FightMgr.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\ResMgr.cs" />
     <Compile Include="Assets\Scripts\Target\TargetHelper.cs" />
     <Compile Include="Assets\Scripts\Unit\Hero.cs" />
     <Compile Include="Assets\Scripts\Unit\HeroHelper.cs" />

@@ -32,4 +32,32 @@ public class ConfigMgr : MonoBehaviour
     {
         return tables;
     }
+
+    public cfg.unit.HeroCfg GetHeroCfg(int id)
+    {
+        var cfg = ConfigMgr.Instance.GetTables().TbHero.GetOrDefault(id);
+        if (cfg == null)
+        {
+            UnityEngine.Debug.LogError($"未找到Hero：{id}");
+            return null;
+        }
+        else
+        {
+            return cfg;
+        }
+    }
+
+    public cfg.unit.UnitCfg GetUnitCfg(int id)
+    {
+        var cfg = ConfigMgr.Instance.GetTables().TbUnit.GetOrDefault(id);
+        if (cfg == null)
+        {
+            UnityEngine.Debug.LogError($"未找到Unit：{id}");
+            return null;
+        }
+        else
+        {
+            return cfg;
+        }
+    }
 }

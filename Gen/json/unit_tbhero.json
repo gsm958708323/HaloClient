@@ -1,6 +1,7 @@
 [
   {
     "ID": 1001,
+    "UnitID": 101,
     "Name": "亚瑟",
     "Type": 1,
     "ActiveSkill": [],
@@ -13,6 +14,7 @@
   },
   {
     "ID": 1002,
+    "UnitID": 102,
     "Name": "后裔",
     "Type": 2,
     "ActiveSkill": [],

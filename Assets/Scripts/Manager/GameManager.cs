@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     {
         gameObject.AddComponent<ConfigMgr>();
         gameObject.AddComponent<FightMgr>();
+        gameObject.AddComponent<ResMgr>();
     }
 
     void Start()

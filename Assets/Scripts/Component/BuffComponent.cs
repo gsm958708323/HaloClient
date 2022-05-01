@@ -43,7 +43,7 @@ public class BuffComponent : Ilogic
     public void LogicStart()
     {
         //初始化被动buff
-        foreach (int id in unit.Cfg.PassiveSkill)
+        foreach (int id in unit.HeroCfg.PassiveSkill)
         {
             CreateBuff(id);//被动是施加给自己的
         }

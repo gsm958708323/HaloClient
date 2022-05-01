@@ -11,11 +11,11 @@ public enum UnitState
 
 public class Unit
 {
-    public CampType campType;
-    public UnitType unitType;
+    public CampType CampType;
+    public UnitType UnitType;
     public UnitState unitState;
     public int boxRadius;
-    public Vector3 Pos;
+    public Vector3 BornPos;
 
     public bool IsDead()
     {
@@ -24,13 +24,13 @@ public class Unit
 
     public CampType GetMyCamp()
     {
-        return campType;
+        return CampType;
     }
 
     public CampType GetOtherCamp()
     {
         CampType otherCamp;
-        otherCamp = campType == CampType.Red ? CampType.Blue : CampType.Red;
+        otherCamp = CampType == CampType.Red ? CampType.Blue : CampType.Red;
         return otherCamp;
     }
 }

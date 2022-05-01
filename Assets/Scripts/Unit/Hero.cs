@@ -4,8 +4,14 @@ using cfg.unit;
 
 public class Hero : Unit
 {
-    public UnitType Type;
-    public HeroCfg Cfg;
+    public HeroCfg HeroCfg;
+    public UnitCfg UnitCfg;
+
+    /// <summary>
+    /// 网络数据
+    /// </summary>
+    public HeroData HeroData;
+
     //todo 改成组件挂载
     public BuffComponent BuffComponent;
     public MoveComponent MoveComponent;
@@ -14,9 +20,14 @@ public class Hero : Unit
     int hp;
     int id;
 
-    public Hero(int id)
+    public Hero(HeroData data)
     {
-        this.id = id;
+        id = data.HeroID;
+        HeroData = data;
+        BornPos = data.BornPos;
+        CampType = data.CampType;
+
+        UnitType = UnitCfg.Type;
     }
 
     public void ModifySpeed(int speed)
@@ -43,7 +54,8 @@ public class Hero : Unit
 
     public void Init()
     {
-        Cfg = HeroHelper.GetHeroCfg(id);
+        HeroCfg = ConfigMgr.Instance.GetHeroCfg(id);
+        UnitCfg = ConfigMgr.Instance.GetUnitCfg(HeroCfg.UnitID);
         MoveComponent = new MoveComponent();
 
         BuffComponent = new BuffComponent();
@@ -53,7 +65,7 @@ public class Hero : Unit
     public void Start()
     {
         hp = 50; // 模拟受伤回血
-        speed = Cfg.MoveSpeed;
+        speed = HeroCfg.MoveSpeed;
 
         MoveComponent.LogicStart();
         BuffComponent.LogicStart();
