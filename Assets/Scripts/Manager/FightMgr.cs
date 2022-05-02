@@ -30,12 +30,11 @@ public class FightMgr : MonoBehaviour
     void Start()
     {
         InitHero();
+        AddListener();
     }
 
-
-    void FixUpdate()
+    void FixedUpdate()
     {
-
         //if (Input.GetKeyDown(KeyCode.Alpha1))
         //{
         //    unit.BuffComponent.CreateBuff(BuffType.MoveSpeed);
@@ -51,6 +50,19 @@ public class FightMgr : MonoBehaviour
     {
         heroList.Clear();
         allUnitDict.Clear();
+    }
+
+    private void AddListener()
+    {
+        EventDispatcher.instance.Regist<int, float, float>((int)EventDef.MoveEvent, OnHeroMoveUpdate);
+    }
+
+    private void OnHeroMoveUpdate(int heroIndex, float h, float v)
+    {
+        if (heroIndex >= 0 && heroIndex < heroList.Count)
+        {
+            heroList[heroIndex].MoveComponent.InputMove(h, v);
+        }
     }
 
     void InitHelper()
@@ -92,7 +104,7 @@ public class FightMgr : MonoBehaviour
                 campDict[hero.UnitType] = unitList;
             }
         }
-        
+
         allUnitDict[hero.CampType][hero.UnitType].Add(hero);
     }
 

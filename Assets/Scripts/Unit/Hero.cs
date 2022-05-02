@@ -11,14 +11,12 @@ public class Hero : Unit
     public BuffComponent BuffComponent;
     public MoveComponent MoveComponent;
 
+    public int HeroIndex;
+    public bool IsLocal;
+    public int HeroID;
+
     int speed;
     int hp;
-    int id;
-
-    public Hero(HeroData data) : base(data)
-    {
-        id = data.HeroID;
-    }
 
     public void ModifySpeed(int speed)
     {
@@ -42,15 +40,20 @@ public class Hero : Unit
         return hp;
     }
 
+    public Hero(HeroData data) : base(data)
+    {
+        HeroID = data.HeroID;
+        IsLocal = data.IsLocal;
+    }
+
     public void Init()
     {
-        HeroCfg = ConfigMgr.Instance.GetHeroCfg(id);
+        HeroCfg = ConfigMgr.Instance.GetHeroCfg(HeroID);
         UnitCfg = ConfigMgr.Instance.GetUnitCfg(HeroCfg.UnitID);
         UnitType = UnitCfg.Type;
 
-        MoveComponent = new MoveComponent();
-        BuffComponent = new BuffComponent();
-        BuffComponent.SetOwner(this);
+        MoveComponent = new MoveComponent(this);
+        BuffComponent = new BuffComponent(this);
     }
 
     public void Start()

@@ -26,20 +26,3 @@ public sealed class BuffTypeAttribute : Attribute
         this.BuffType = type;
     }
 }
-
-public static class BuffDef
-{
-    /// <summary>
-    /// 逻辑帧的间隔
-    /// </summary>
-    public static int LogicFrameIntervelMs
-    {
-        get
-        {
-            return (int)(UnityEngine.Time.deltaTime * 1000);
-        }
-        private set { }
-    }
-
-    public static readonly int ForeverBuff = -1;
-}

@@ -6,8 +6,13 @@
 using System;
 using System.Collections.Generic;
 
-public class EventDef
+//public class EventDef
+//{
+//    public static readonly int ActionStart = 1;
+//    public static readonly int ActionEnd = 2;
+//}
+
+public enum EventDef
 {
-    public static readonly int ActionStart = 1;
-    public static readonly int ActionEnd = 2;
+    MoveEvent = 1,
 }

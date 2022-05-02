@@ -6,10 +6,6 @@ using UnityEngine;
 public class HeroData : UnitData
 {
     /// <summary>
-    /// 英雄编号，传输网络数据时的标识信息
-    /// </summary>
-    public int HeroIndex;
-    /// <summary>
     /// 英雄配置表ID
     /// </summary>
     public int HeroID;
@@ -37,7 +33,6 @@ public class DataCenter
         listHeroData.Add(new HeroData()
         {
             HeroID = 1001,
-            HeroIndex = 1,
             CampType = CampType.Red,
             BornPos = new Vector3(-4.9f, 0, 0),
             Name = "我是亚瑟王",
@@ -47,12 +42,20 @@ public class DataCenter
         listHeroData.Add(new HeroData()
         {
             HeroID = 1002,
-            HeroIndex = 2,
             CampType = CampType.Blue,
             BornPos = new Vector3(6, 0, 0),
             Name = "大鸟满天飞",
             IsLocal= false
         });
         return listHeroData;
+    }
+
+    /// <summary>
+    /// 获取自己的网络标识
+    /// </summary>
+    /// <returns></returns>
+    public static int GetMyIndex()
+    {
+        return 0;
     }
 }

@@ -11,14 +11,12 @@ using cfg.buff;
 public class BuffComponent : Ilogic
 {
     List<Buff> buffList = new List<Buff>();
-    Hero unit;
+    Hero owner;
 
-
-    public void SetOwner(Hero unit)
+    public BuffComponent(Hero hero)
     {
-        this.unit = unit;
+        this.owner = hero;
     }
-
 
     public Buff GetBuff(BuffType type)
     {
@@ -34,7 +32,7 @@ public class BuffComponent : Ilogic
 
     public Buff CreateBuff(int id, Hero to = null, object[] args = null)
     {
-        Buff buff = BuffHelper.CreateBuff(id, unit, to, args);
+        Buff buff = BuffHelper.CreateBuff(id, owner, to, args);
         buff.LogicInit();
         buffList.Add(buff);
         return buff;
@@ -43,7 +41,7 @@ public class BuffComponent : Ilogic
     public void LogicStart()
     {
         //初始化被动buff
-        foreach (int id in unit.HeroCfg.PassiveSkill)
+        foreach (int id in owner.HeroCfg.PassiveSkill)
         {
             CreateBuff(id);//被动是施加给自己的
         }
