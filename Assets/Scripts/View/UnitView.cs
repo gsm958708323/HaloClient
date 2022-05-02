@@ -25,9 +25,22 @@ public abstract class UnitView : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(isLocal)
+        if (isLocal)
         {
-            //gameObject.transform.position = unitData.BornPos
+            float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical");
+
+            if (h == 0 && v == 0)
+            {
+                return;
+            }
+
+            Vector3 dir = new Vector3(h, 0, v);
+            //因为相机旋转45度，所以将方向也旋转
+            dir = Quaternion.Euler(0, 45, 0) * dir;
+
+            gameObject.transform.position += dir;
+            gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.forward, dir);
         }
     }
 }
