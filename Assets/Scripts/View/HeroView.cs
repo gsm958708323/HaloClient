@@ -36,14 +36,27 @@ public class HeroView : UnitView
         if (pos == Vector3.zero)
             return;
 
-        UpdatePos(pos);
-
-        //gameObject.transform.position = pos;
-        //从当前朝向旋转到目标朝向
-        gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.forward, dir);
+        UpdatePos(pos, dir);
+        UpdateDir(dir);
     }
 
-    void UpdatePos(Vector3 pos)
+    private void UpdateDir(Vector3 dir)
+    {
+        if (!GlobalDef.Instance.IsOpenPosPredict)
+        {
+            SetViewDir(dir);
+            return;
+        }
+
+        //根据当前旋转角度的大小，获得一个调节值。角度越大，就需要越快平滑到目标dir
+        float angle = Vector3.Angle(transform.forward, dir);
+        float angleRate = (angle / 180) * GlobalDef.Instance.SmoothDirRate * Time.deltaTime;
+
+        Vector3 smoothDir = Vector3.Lerp(transform.forward, dir, angleRate);
+        SetViewDir(smoothDir);
+    }
+
+    void UpdatePos(Vector3 pos, Vector3 dir)
     {
         if (!GlobalDef.Instance.IsOpenPosPredict)
         {
@@ -51,10 +64,11 @@ public class HeroView : UnitView
             return;
         }
 
-        //判断逻辑位置是否变化
+        //逻辑位置发生变化，以逻辑位置为准
         if (hero.MoveComponent.isPosChange)
         {
             SetViewPos(pos);
+            //SetViewDir(dir);
 
             hero.MoveComponent.isPosChange = false;
             predictCount = 0;
@@ -69,10 +83,22 @@ public class HeroView : UnitView
             //预测位置 = 方向 * 速度 * 时间
             Vector3 predictPos = hero.MoveComponent.Direction * hero.MoveComponent.MoveSpeed * Time.deltaTime;
             AddViewPos(predictPos);
-            //print($"预测位置变化：{predictPos.x} {predictPos.z}");
+
+            //var temp = predictPos + transform.position;
+            //print($"预测位置变化：{temp.x} {temp.z}");
 
             predictCount++;
         }
+    }
+
+    /// <summary>
+    /// 设置表现层的朝向
+    /// </summary>
+    /// <param name="dir"></param>
+    void SetViewDir(Vector3 dir)
+    {
+        //从当前朝向旋转到目标朝向
+        gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.forward, dir);
     }
 
     /// <summary>

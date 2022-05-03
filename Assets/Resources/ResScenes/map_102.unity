@@ -932,7 +932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LogicFrameIntervelSec: 0.066667
   IsOpenPosPredict: 1
-  SmoothMoveRate: 144
+  SmoothMoveRate: 500
   PredictMaxFrame: 20
 --- !u!4 &1113304079
 Transform:

@@ -18,10 +18,10 @@ public class GlobalDef : MonoBehaviour
     /// 逻辑帧的间隔（秒）
     /// </summary>
     public float LogicFrameIntervelSec = 0.066667f;
-    /// <summary>
-    /// 每秒能跑多少帧
-    /// </summary>
-    public readonly int LogicFramePerSec = (int)Math.Ceiling(1 / Instance.LogicFrameIntervelSec);
+    ///// <summary>
+    ///// 每秒能跑多少帧
+    ///// </summary>
+    //public readonly int LogicFramePerSec = (int)Math.Ceiling(1 / Instance.LogicFrameIntervelSec);
 
     /// <summary>
     /// 是否开启位置预测
@@ -31,7 +31,12 @@ public class GlobalDef : MonoBehaviour
     /// <summary>
     /// 平滑移动速率
     /// </summary>
-    public int SmoothMoveRate = 100;
+    public int SmoothMoveRate = 500;
+
+    /// <summary>
+    /// 平滑朝向速率
+    /// </summary>
+    public int SmoothDirRate = 100;
 
     /// <summary>
     /// 最大预测帧
