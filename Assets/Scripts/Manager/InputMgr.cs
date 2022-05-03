@@ -21,7 +21,7 @@ public class InputMgr : MonoBehaviour
         if (h != lastH || v != lastV)
         {
             lastH = h; lastV = v;
-            EventDispatcher.instance.DispatchEvent((int)EventDef.MoveEvent, DataCenter.GetMyIndex(), h, v);
+            EventDispatcher.instance.DispatchEvent((int)EventDef.InputMoveEvent, DataCenter.GetMyIndex(), h, v);
         }
     }
 }

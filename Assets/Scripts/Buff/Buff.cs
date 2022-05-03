@@ -52,7 +52,7 @@ public abstract class Buff
     {
         if (state == BuffState.Delay)
         {
-            delayCount -= (int)GlobalDef.LogicFrameIntervelSec * 1000;
+            delayCount -= (int)GlobalDef.Instance.LogicFrameIntervelSec * 1000;
             //UnityEngine.Debug.Log($"delayCount: {delayCount}");
 
             if (delayCount <= 0)
@@ -77,7 +77,7 @@ public abstract class Buff
         else if (state == BuffState.Tick)
         {
             //固定间隔执行Tick
-            int deltaTime = (int)GlobalDef.LogicFrameIntervelSec * 1000;
+            int deltaTime = (int)GlobalDef.Instance.LogicFrameIntervelSec * 1000;
 
             intervalCount -= deltaTime;
             //UnityEngine.Debug.Log($"intervalCount: {intervalCount}");
@@ -134,16 +134,16 @@ public abstract class Buff
 
     public virtual void Start()
     {
-        UnityEngine.Debug.Log("--Start--");
+        //UnityEngine.Debug.Log("--Start--");
     }
 
     public virtual void End()
     {
-        UnityEngine.Debug.Log("--End--");
+        //UnityEngine.Debug.Log("--End--");
     }
 
     public virtual void Tick()
     {
-        UnityEngine.Debug.Log("--Tick--");
+        //UnityEngine.Debug.Log("--Tick--");
     }
 }

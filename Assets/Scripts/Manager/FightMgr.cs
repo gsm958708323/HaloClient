@@ -20,6 +20,8 @@ public class FightMgr : MonoBehaviour
 
     public List<Hero> heroList = new List<Hero>();
 
+    float timer = 0;
+
     void Awake()
     {
         Instance = this;
@@ -33,17 +35,19 @@ public class FightMgr : MonoBehaviour
         AddListener();
     }
 
-    void FixedUpdate()
+    private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    unit.BuffComponent.CreateBuff(BuffType.MoveSpeed);
-        //}
-
-        foreach (var hero in heroList)
+        if(timer >= GlobalDef.Instance.LogicFrameIntervelSec)
         {
-            hero.Tick();
+            //Debug.LogWarning($"调用一帧： {timer}");
+            timer = 0;
+            foreach (var hero in heroList)
+            {
+                hero.Tick();
+            }
         }
+        timer += Time.deltaTime;
+        //print($"计时器： {timer}");
     }
 
     private void OnDestroy()
@@ -54,7 +58,7 @@ public class FightMgr : MonoBehaviour
 
     private void AddListener()
     {
-        EventDispatcher.instance.Regist<int, float, float>((int)EventDef.MoveEvent, OnHeroMoveUpdate);
+        EventDispatcher.instance.Regist<int, float, float>((int)EventDef.InputMoveEvent, OnHeroMoveUpdate);
     }
 
     private void OnHeroMoveUpdate(int heroIndex, float h, float v)

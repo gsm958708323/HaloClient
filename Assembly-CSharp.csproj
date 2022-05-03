@@ -72,7 +72,6 @@
     <Compile Include="Assets\Gen\unit\TbUnit.cs" />
     <Compile Include="Assets\Gen\unit\UnitCfg.cs" />
     <Compile Include="Assets\Gen\unit\UnitType.cs" />
-    <Compile Include="Assets\GlobalDef.cs" />
     <Compile Include="Assets\Scripts\Buff\Buff.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffDef.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffHelper.cs" />
@@ -83,6 +82,7 @@
     <Compile Include="Assets\Scripts\DataCenter.cs" />
     <Compile Include="Assets\Scripts\Event\EventDef.cs" />
     <Compile Include="Assets\Scripts\Event\EventDispatcher.cs" />
+    <Compile Include="Assets\Scripts\GlobalDef.cs" />
     <Compile Include="Assets\Scripts\Manager\ConfigMgr.cs" />
     <Compile Include="Assets\Scripts\Manager\FightMgr.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />

@@ -11,6 +11,11 @@ public class HeroView : UnitView
 {
     protected Hero hero;
 
+    /// <summary>
+    /// 当前预测帧
+    /// </summary>
+    int predictCount = 0;
+
     public override void LogicInit(Unit unit)
     {
         base.LogicInit(unit);
@@ -23,14 +28,72 @@ public class HeroView : UnitView
         gameObject.transform.position = hero.BornPos;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         var pos = hero.MoveComponent.Position;
         var dir = hero.MoveComponent.Direction;
 
-        gameObject.transform.position = pos;
+        if (pos == Vector3.zero)
+            return;
+
+        UpdatePos(pos);
+
+        //gameObject.transform.position = pos;
         //从当前朝向旋转到目标朝向
         gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.forward, dir);
+    }
+
+    void UpdatePos(Vector3 pos)
+    {
+        if (!GlobalDef.Instance.IsOpenPosPredict)
+        {
+            SetViewPos(pos);
+            return;
+        }
+
+        //判断逻辑位置是否变化
+        if (hero.MoveComponent.isPosChange)
+        {
+            SetViewPos(pos);
+
+            hero.MoveComponent.isPosChange = false;
+            predictCount = 0;
+
+            //Debug.LogError($"逻辑位置变化：{pos.x} {pos.z}");
+        }
+        else
+        {
+            if (predictCount > GlobalDef.Instance.PredictMaxFrame)
+                return;
+
+            //预测位置 = 方向 * 速度 * 时间
+            Vector3 predictPos = hero.MoveComponent.Direction * hero.MoveComponent.MoveSpeed * Time.deltaTime;
+            AddViewPos(predictPos);
+            //print($"预测位置变化：{predictPos.x} {predictPos.z}");
+
+            predictCount++;
+        }
+    }
+
+    /// <summary>
+    /// 增加表现层的位置
+    /// </summary>
+    /// <param name="pos"></param>
+    void AddViewPos(Vector3 pos)
+    {
+        SetViewPos(gameObject.transform.position + pos);
+    }
+
+    void SetViewPos(Vector3 pos)
+    {
+        if (GlobalDef.Instance.IsOpenPosPredict)
+        {
+            transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * GlobalDef.Instance.SmoothMoveRate);
+        }
+        else
+        {
+            gameObject.transform.position = pos;
+        }
     }
 }
 

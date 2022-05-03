@@ -13,6 +13,7 @@ public class MoveComponent : Ilogic
     /// 校验之后的方向
     /// </summary>
     public Vector3 Direction = Vector3.zero;
+    public bool isPosChange = false;
 
     /// <summary>
     /// 逻辑速度
@@ -23,6 +24,8 @@ public class MoveComponent : Ilogic
     /// ui输入的数据
     /// </summary>
     Vector3 uiInput = Vector3.zero;
+
+    Vector3 lastInput = Vector3.zero;
 
     public MoveComponent(Hero hero)
     {
@@ -45,6 +48,7 @@ public class MoveComponent : Ilogic
 
     public void LogicStart()
     {
+        Position = owner.BornPos;
     }
 
     public void LogicTick()
@@ -53,7 +57,8 @@ public class MoveComponent : Ilogic
         if (uiInput == Vector3.zero)
             return;
 
-        Position += uiInput * MoveSpeed * GlobalDef.LogicFrameIntervelSec;
+        Position += uiInput * MoveSpeed * GlobalDef.Instance.LogicFrameIntervelSec;
         Direction = uiInput;
+        isPosChange = true;
     }
 }

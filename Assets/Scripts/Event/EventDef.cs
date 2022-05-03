@@ -14,5 +14,6 @@ using System.Collections.Generic;
 
 public enum EventDef
 {
-    MoveEvent = 1,
+    InputMoveEvent = 1,
+    HeroPosChange =2,
 }
