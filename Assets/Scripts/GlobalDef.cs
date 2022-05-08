@@ -42,4 +42,6 @@ public class GlobalDef : MonoBehaviour
     /// 最大预测帧
     /// </summary>
     public int PredictMaxFrame = 20;
+
+    public float AnimFade = 0.25f;
 }

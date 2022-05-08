@@ -14,6 +14,12 @@ using System.Collections.Generic;
 
 public enum EventDef
 {
+    /// <summary>
+    /// 玩家移动输入
+    /// </summary>
     InputMoveEvent = 1,
-    HeroPosChange =2,
+    /// <summary>
+    /// 玩家移动状态变化
+    /// </summary>
+    UIMoveStateChange = 2,
 }

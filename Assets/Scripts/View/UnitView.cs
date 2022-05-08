@@ -8,5 +8,10 @@ public abstract class UnitView : MonoBehaviour
     {
 
     }
+
+    public virtual void PlayAnim(string name)
+    {
+
+    }
 }
 

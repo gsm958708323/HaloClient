@@ -11,15 +11,46 @@ public class HeroView : UnitView
 {
     protected Hero hero;
 
+    Animation anim;
+    /// <summary>
+    /// 记录初始速度
+    /// </summary>
+    float moveSpeedBase;
+
     /// <summary>
     /// 当前预测帧
     /// </summary>
     int predictCount = 0;
 
+    private void Awake()
+    {
+        EventDispatcher.instance.Regist<int, UIMoveState>((int)EventDef.UIMoveStateChange, OnMoveStateChange);
+    }
+
+    private void OnMoveStateChange(int netIndex, UIMoveState state)
+    {
+        if (hero.NetIndex != netIndex)
+        {
+            return;
+        }
+
+        if (state == UIMoveState.Press)
+        {
+            PlayAnim("walk");
+        }
+        else
+        {
+            PlayAnim("free");
+        }
+    }
+
     public override void LogicInit(Unit unit)
     {
         base.LogicInit(unit);
         hero = (Hero)unit;
+
+        anim = GetComponentInChildren<Animation>();
+        moveSpeedBase = hero.MoveComponent.MoveSpeed;
     }
 
     private void Start()
@@ -38,6 +69,23 @@ public class HeroView : UnitView
 
         UpdatePos(pos, dir);
         UpdateDir(dir);
+    }
+
+    public override void PlayAnim(string name)
+    {
+        base.PlayAnim(name);
+
+        if (name == "walk")
+        {
+            //速度越大，动画过渡时间越小
+            float moveRate = hero.MoveComponent.MoveSpeed / moveSpeedBase;
+            anim[name].speed = moveRate;
+            anim.CrossFade(name, GlobalDef.Instance.AnimFade / moveRate);
+        }
+        else
+        {
+            anim.CrossFade(name, GlobalDef.Instance.AnimFade);
+        }
     }
 
     private void UpdateDir(Vector3 dir)

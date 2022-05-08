@@ -11,8 +11,7 @@ public class Hero : Unit
     public BuffComponent BuffComponent;
     public MoveComponent MoveComponent;
 
-    public int HeroIndex;
-    public bool IsLocal;
+    public int NetIndex;
     public int HeroID;
 
     int speed;
@@ -43,7 +42,7 @@ public class Hero : Unit
     public Hero(HeroData data) : base(data)
     {
         HeroID = data.HeroID;
-        IsLocal = data.IsLocal;
+        NetIndex = data.NetIndex;
     }
 
     public void Init()
