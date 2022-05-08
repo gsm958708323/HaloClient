@@ -44,4 +44,6 @@ public class GlobalDef : MonoBehaviour
     public int PredictMaxFrame = 20;
 
     public float AnimFade = 0.25f;
+
+    public int CameraRate = 100;
 }

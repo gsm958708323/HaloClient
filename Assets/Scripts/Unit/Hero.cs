@@ -4,6 +4,8 @@ using cfg.unit;
 
 public class Hero : Unit
 {
+    public HeroView HeroView;
+
     public HeroCfg HeroCfg;
     public UnitCfg UnitCfg;
 
@@ -43,6 +45,11 @@ public class Hero : Unit
     {
         HeroID = data.HeroID;
         NetIndex = data.NetIndex;
+    }
+
+    public void SetHeroView(HeroView view)
+    {
+        HeroView = view;
     }
 
     public void Init()

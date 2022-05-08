@@ -22,22 +22,39 @@ public class FightMgr : MonoBehaviour
 
     float timer = 0;
 
+    Transform cameraTrans;
+    Transform heroTrans;
+
     void Awake()
     {
         Instance = this;
         InitHelper();
+        AddListener();
     }
 
 
     void Start()
     {
         InitHero();
-        AddListener();
+        InitCamera();
     }
+
+    private void InitCamera()
+    {
+        cameraTrans = GameObject.Find("CameraRoot").transform;
+        Hero hero = GetHeroByIndex(DataCenter.GetMyNetIndex());
+        hero.HeroView.SetMainCamera(cameraTrans);
+    }
+
+    void InitHelper()
+    {
+        BuffHelper.InitBuffCfg();
+    }
+
 
     private void Update()
     {
-        if(timer >= GlobalDef.Instance.LogicFrameIntervelSec)
+        if (timer >= GlobalDef.Instance.LogicFrameIntervelSec)
         {
             //Debug.LogWarning($"调用一帧： {timer}");
             timer = 0;
@@ -63,15 +80,25 @@ public class FightMgr : MonoBehaviour
 
     private void OnHeroMoveUpdate(int heroIndex, float h, float v)
     {
-        if (heroIndex >= 0 && heroIndex < heroList.Count)
+        Hero hero = GetHeroByIndex(heroIndex);
+        if (hero != null)
         {
-            heroList[heroIndex].MoveComponent.InputMove(h, v);
+            hero.MoveComponent.InputMove(h, v);
         }
     }
 
-    void InitHelper()
+    #region 英雄相关
+    Hero GetHeroByIndex(int index)
     {
-        BuffHelper.InitBuffCfg();
+        if (index >= 0 && index < heroList.Count)
+        {
+            return heroList[index];
+        }
+        else
+        {
+            Debug.LogError($"未找到hero {index}");
+            return null;
+        }
     }
 
     void InitHero()
@@ -89,6 +116,25 @@ public class FightMgr : MonoBehaviour
         }
     }
 
+    private void InitPrefab(Hero hero)
+    {
+        string path = hero.UnitCfg.ResPath;
+        if (string.IsNullOrEmpty(path))
+            return;
+
+        var go = ResMgr.Instance.LoadPrefab(path);
+        if (go == null)
+            return;
+
+        HeroView view = go.GetComponent<HeroView>();
+        view.LogicInit(hero);
+
+        hero.SetHeroView(view);
+    }
+    #endregion
+
+
+    #region unit对象集合
     /// <summary>
     /// 将unit对象添加到集合中
     /// </summary>
@@ -112,19 +158,6 @@ public class FightMgr : MonoBehaviour
         allUnitDict[hero.CampType][hero.UnitType].Add(hero);
     }
 
-    private void InitPrefab(Hero hero)
-    {
-        string path = hero.UnitCfg.ResPath;
-        if (string.IsNullOrEmpty(path))
-            return;
-
-        var go = ResMgr.Instance.LoadPrefab(path);
-        if (go == null)
-            return;
-
-        UnitView view = go.GetComponent<UnitView>();
-        view.LogicInit(hero);
-    }
 
     public List<Unit> TryGetTargetList(CampType campType, UnitType unitType)
     {
@@ -141,4 +174,6 @@ public class FightMgr : MonoBehaviour
         }
         return listUnit;
     }
+
+    #endregion
 }

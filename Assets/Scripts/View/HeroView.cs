@@ -12,6 +12,12 @@ public class HeroView : UnitView
     protected Hero hero;
 
     Animation anim;
+
+    /// <summary>
+    /// 主摄像机的位置
+    /// </summary>
+    public Transform cameraTrans;
+
     /// <summary>
     /// 记录初始速度
     /// </summary>
@@ -69,6 +75,11 @@ public class HeroView : UnitView
 
         UpdatePos(pos, dir);
         UpdateDir(dir);
+    }
+
+    public void SetMainCamera(Transform trans)
+    {
+        cameraTrans = trans;
     }
 
     public override void PlayAnim(string name)
@@ -166,7 +177,12 @@ public class HeroView : UnitView
         }
         else
         {
-            gameObject.transform.position = pos;
+            transform.position = pos;
+        }
+
+        if (cameraTrans != null)
+        {
+            cameraTrans.position = transform.position;
         }
     }
 }
