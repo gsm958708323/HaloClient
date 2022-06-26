@@ -22,18 +22,18 @@ public sealed class TargetCfg :  Bright.Config.BeanBase
         { if(!_json["TargetType"].IsNumber) { throw new SerializationException(); }  TargetType = (skill.TargetType)_json["TargetType"].AsInt; }
         { var _json1 = _json["UnitType"]; if(!_json1.IsArray) { throw new SerializationException(); } UnitType = new System.Collections.Generic.List<unit.UnitType>(_json1.Count); foreach(JSONNode __e in _json1.Children) { unit.UnitType __v;  { if(!__e.IsNumber) { throw new SerializationException(); }  __v = (unit.UnitType)__e.AsInt; }  UnitType.Add(__v); }   }
         { if(!_json["RuleType"].IsNumber) { throw new SerializationException(); }  RuleType = (skill.TargetSelectRule)_json["RuleType"].AsInt; }
-        { if(!_json["SelectRange"].IsNumber) { throw new SerializationException(); }  SelectRange = _json["SelectRange"]; }
-        { if(!_json["SearchDis"].IsNumber) { throw new SerializationException(); }  SearchDis = _json["SearchDis"]; }
+        { if(!_json["AttackDis"].IsNumber) { throw new SerializationException(); }  AttackDis = _json["AttackDis"]; }
+        { if(!_json["SelectDis"].IsNumber) { throw new SerializationException(); }  SelectDis = _json["SelectDis"]; }
     }
 
-    public TargetCfg(int ID, skill.TargetType TargetType, System.Collections.Generic.List<unit.UnitType> UnitType, skill.TargetSelectRule RuleType, int SelectRange, int SearchDis ) 
+    public TargetCfg(int ID, skill.TargetType TargetType, System.Collections.Generic.List<unit.UnitType> UnitType, skill.TargetSelectRule RuleType, int AttackDis, int SelectDis ) 
     {
         this.ID = ID;
         this.TargetType = TargetType;
         this.UnitType = UnitType;
         this.RuleType = RuleType;
-        this.SelectRange = SelectRange;
-        this.SearchDis = SearchDis;
+        this.AttackDis = AttackDis;
+        this.SelectDis = SelectDis;
     }
 
     public static TargetCfg DeserializeTargetCfg(JSONNode _json)
@@ -55,13 +55,13 @@ public sealed class TargetCfg :  Bright.Config.BeanBase
     /// </summary>
     public skill.TargetSelectRule RuleType { get; private set; }
     /// <summary>
-    /// 选择范围
+    /// 攻击距离
     /// </summary>
-    public int SelectRange { get; private set; }
+    public int AttackDis { get; private set; }
     /// <summary>
-    /// 选择距离
+    /// 选择距离，可以朝目标移动
     /// </summary>
-    public int SearchDis { get; private set; }
+    public int SelectDis { get; private set; }
 
     public const int __ID__ = -730452586;
     public override int GetTypeId() => __ID__;
@@ -81,8 +81,8 @@ public sealed class TargetCfg :  Bright.Config.BeanBase
         + "TargetType:" + TargetType + ","
         + "UnitType:" + Bright.Common.StringUtil.CollectionToString(UnitType) + ","
         + "RuleType:" + RuleType + ","
-        + "SelectRange:" + SelectRange + ","
-        + "SearchDis:" + SearchDis + ","
+        + "AttackDis:" + AttackDis + ","
+        + "SelectDis:" + SelectDis + ","
         + "}";
     }
     }

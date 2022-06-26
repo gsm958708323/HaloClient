@@ -5,19 +5,29 @@ using cfg.unit;
 
 public static class TargetHelper
 {
-    public static TargetCfg GetTargetCfg(int id)
+    /// <summary>
+    /// 查找距离自己最近的单位
+    /// </summary>
+    /// <param name="from"></param>
+    /// <param name="targetCfg"></param>
+    /// <returns></returns>
+    public static List<Hero> FindTargetByRule(Hero self, TargetCfg cfg)
     {
-        var cfg = ConfigMgr.Instance.GetTables().TbTarget.GetOrDefault(id);
-        if (cfg == null)
+        var unitList = TryGetTargetList(self, cfg);
+        if (unitList == null)
         {
-            UnityEngine.Debug.LogError($"未找到TargetCfg：{id}");
             return null;
         }
-        else
+
+
+        unitList = FliterByRule(self, unitList, cfg);
+        if (unitList == null)
         {
-            return cfg;
+            return null;
         }
+        return unitList;
     }
+
 
     /// <summary>
     /// 查找目标集合
@@ -25,11 +35,11 @@ public static class TargetHelper
     /// <param name="unit"></param>
     /// <param name="cfg"></param>
     /// <returns></returns>
-    static List<Unit> TryGetTargetList(Unit unit, TargetCfg cfg)
+    static List<Hero> TryGetTargetList(Hero unit, TargetCfg cfg)
     {
         CampType targetCamp = cfg.TargetType == TargetType.Friend ? unit.GetMyCamp() : unit.GetOtherCamp();
 
-        List<Unit> listAllUnit = new List<Unit>();
+        List<Hero> listAllUnit = new List<Hero>();
         foreach (UnitType unitType in cfg.UnitType)
         {
             var unitList = FightMgr.Instance.TryGetTargetList(targetCamp, unitType);
@@ -49,28 +59,6 @@ public static class TargetHelper
         }
     }
 
-    /// <summary>
-    /// 查找距离自己最近的单位
-    /// </summary>
-    /// <param name="from"></param>
-    /// <param name="targetCfg"></param>
-    /// <returns></returns>
-    public static List<Unit> FindTargetByRule(Unit self, TargetCfg cfg)
-    {
-        var unitList = TryGetTargetList(self, cfg);
-        if (unitList == null)
-        {
-            return null;
-        }
-
-
-        unitList = FliterByRule(self, unitList, cfg);
-        if (unitList == null)
-        {
-            return null;
-        }
-        return unitList;
-    }
 
     /// <summary>
     /// 根据规则过滤目标集合
@@ -79,7 +67,7 @@ public static class TargetHelper
     /// <param name="cfg"></param>
     /// <returns></returns>
 
-    static List<Unit> FliterByRule(Unit self, List<Unit> unitList, TargetCfg cfg)
+    static List<Hero> FliterByRule(Hero self, List<Hero> unitList, TargetCfg cfg)
     {
         //判断查找目标是单人还是多人
         if (cfg.RuleType == TargetSelectRule.TargetClosestSingle)
@@ -89,10 +77,10 @@ public static class TargetHelper
         return null;
     }
 
-    static List<Unit> FliterByClosest(Unit self, List<Unit> unitList, TargetCfg cfg)
+    static List<Hero> FliterByClosest(Hero self, List<Hero> unitList, TargetCfg cfg)
     {
         float minDis = int.MaxValue;
-        Unit target = null;
+        Hero target = null;
         foreach (var unit in unitList)
         {
             if (unit.IsDead())
@@ -100,18 +88,24 @@ public static class TargetHelper
                 continue;
             }
 
-            int sumRadius = self.boxRadius + unit.boxRadius;
+            float sumRadius = self.boxRadius + unit.boxRadius;
             //两点之间距离减去半径和
-            float dis = (self.BornPos - unit.BornPos).magnitude - sumRadius;
+            float dis = (self.MoveComp.Position - unit.MoveComp.Position).magnitude - sumRadius;
             if (dis < minDis)
             {
                 target = unit;
                 minDis = dis;
             }
         }
-        if (target == null)
-            return null;
+        UnityEngine.Debug.Log($"单人目标最短距离：{minDis} {target.HeroCfg.Name}");
+
+        if (minDis < cfg.AttackDis)
+        {
+            return new List<Hero>() { target };
+        }
         else
-            return new List<Unit>() { target };
+        {
+            return null;
+        }
     }
 }

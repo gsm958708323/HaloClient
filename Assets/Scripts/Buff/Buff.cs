@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using cfg.buff;
 
-public abstract class Buff
+public abstract class Buff : Ilogic
 {
     public BuffCfg Cfg;
 
@@ -30,7 +30,7 @@ public abstract class Buff
         this.Cfg = BuffHelper.GetBuffCfg(ID);
     }
 
-    public void LogicInit()
+    public void LogicStart()
     {
         durationCount = Cfg.Duration;
         intervalCount = Cfg.Interval;
@@ -108,6 +108,10 @@ public abstract class Buff
         {
             UnityEngine.Debug.LogError($"Buff状态切换失败：{state}");
         }
+    }
+
+    public void LogicEnd()
+    {
     }
 
     public void ChangeState(BuffState state)

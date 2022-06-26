@@ -16,7 +16,7 @@ public class Unit
 
     public UnitType UnitType;
     public UnitState unitState;
-    public int boxRadius;
+    public float boxRadius = 0.5f;
 
     public Unit(UnitData data)
     {

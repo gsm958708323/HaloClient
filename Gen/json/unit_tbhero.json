@@ -4,7 +4,9 @@
     "UnitID": 101,
     "Name": "亚瑟",
     "Type": 1,
-    "ActiveSkill": [],
+    "ActiveSkill": [
+      100101
+    ],
     "PassiveSkill": [
       100102
     ],

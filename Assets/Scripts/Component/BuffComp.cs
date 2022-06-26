@@ -8,12 +8,12 @@ using System.Collections.Generic;
 using System.Reflection;
 using cfg.buff;
 
-public class BuffComponent : Ilogic
+public class BuffComp : Ilogic
 {
     List<Buff> buffList = new List<Buff>();
     Hero owner;
 
-    public BuffComponent(Hero hero)
+    public BuffComp(Hero hero)
     {
         this.owner = hero;
     }
@@ -30,12 +30,14 @@ public class BuffComponent : Ilogic
         return null;
     }
 
-    public Buff CreateBuff(int id, Hero to = null, object[] args = null)
+    public void CreateBuff(int id, Hero to = null, object[] args = null)
     {
         Buff buff = BuffHelper.CreateBuff(id, owner, to, args);
-        buff.LogicInit();
+        if (buff == null)
+            return;
+
+        buff.LogicStart();
         buffList.Add(buff);
-        return buff;
     }
 
     public void LogicStart()

@@ -12,7 +12,7 @@ public enum UIMoveState
     Up,
 }
 
-public class MoveComponent : Ilogic
+public class MoveComp : Ilogic
 {
     Hero owner;
 
@@ -39,7 +39,7 @@ public class MoveComponent : Ilogic
 
     public UIMoveState UIMoveState = UIMoveState.Up;
 
-    public MoveComponent(Hero hero)
+    public MoveComp(Hero hero)
     {
         owner = hero;
         MoveSpeed = hero.HeroCfg.MoveSpeed;

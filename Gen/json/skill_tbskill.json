@@ -12,7 +12,7 @@
     "SkillTime": 1400,
     "IsNormalAttack": true,
     "IconName": "",
-    "AnimName": "",
+    "AnimName": "atk",
     "AudioStart": "",
     "AudioWork": "",
     "AudioHit": ""

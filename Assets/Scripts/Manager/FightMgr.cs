@@ -16,7 +16,7 @@ public class FightMgr : MonoBehaviour
 
     Hero unit;
     // { camptype: { unitType: [unit1, unit2, ] } } 阵营 - 类型 - 对象
-    Dictionary<CampType, Dictionary<UnitType, List<Unit>>> allUnitDict = new Dictionary<CampType, Dictionary<UnitType, List<Unit>>>();
+    Dictionary<CampType, Dictionary<UnitType, List<Hero>>> allUnitDict = new Dictionary<CampType, Dictionary<UnitType, List<Hero>>>();
 
     public List<Hero> heroList = new List<Hero>();
 
@@ -65,6 +65,20 @@ public class FightMgr : MonoBehaviour
         }
         timer += Time.deltaTime;
         //print($"计时器： {timer}");
+        TestUpdate();
+    }
+
+    // todo 删除
+    void TestUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            var hero = GetHeroByIndex(DataCenter.GetMyNetIndex());
+            if (hero != null)
+            {
+                hero.SkillComp.UseSkill(0);
+            }
+        }
     }
 
     private void OnDestroy()
@@ -83,7 +97,7 @@ public class FightMgr : MonoBehaviour
         Hero hero = GetHeroByIndex(heroIndex);
         if (hero != null)
         {
-            hero.MoveComponent.InputMove(h, v);
+            hero.MoveComp.InputMove(h, v);
         }
     }
 
@@ -143,14 +157,14 @@ public class FightMgr : MonoBehaviour
     {
         //var data = hero.HeroData;
 
-        if (!allUnitDict.TryGetValue(hero.CampType, out Dictionary<UnitType, List<Unit>> campDict))
+        if (!allUnitDict.TryGetValue(hero.CampType, out Dictionary<UnitType, List<Hero>> campDict))
         {
-            campDict = new Dictionary<UnitType, List<Unit>>();
+            campDict = new Dictionary<UnitType, List<Hero>>();
             allUnitDict[hero.CampType] = campDict;
 
-            if (!campDict.TryGetValue(hero.UnitType, out List<Unit> unitList))
+            if (!campDict.TryGetValue(hero.UnitType, out List<Hero> unitList))
             {
-                unitList = new List<Unit>();
+                unitList = new List<Hero>();
                 campDict[hero.UnitType] = unitList;
             }
         }
@@ -159,15 +173,15 @@ public class FightMgr : MonoBehaviour
     }
 
 
-    public List<Unit> TryGetTargetList(CampType campType, UnitType unitType)
+    public List<Hero> TryGetTargetList(CampType campType, UnitType unitType)
     {
-        Dictionary<UnitType, List<Unit>> dictUnitList;
+        Dictionary<UnitType, List<Hero>> dictUnitList;
         if (!allUnitDict.TryGetValue(campType, out dictUnitList))
         {
             return null;
         }
 
-        List<Unit> listUnit;
+        List<Hero> listUnit;
         if (!dictUnitList.TryGetValue(unitType, out listUnit))
         {
             return null;

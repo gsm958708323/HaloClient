@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,9 +53,6 @@
     <UnityVersion>2019.4.29f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="E:\VisualStudio\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Assets\Gen\Tables.cs" />
     <Compile Include="Assets\Gen\buff\BuffAttach.cs" />
     <Compile Include="Assets\Gen\buff\BuffCfg.cs" />
@@ -80,17 +77,22 @@
     <Compile Include="Assets\Scripts\Buff\BuffHelper.cs" />
     <Compile Include="Assets\Scripts\Buff\HPCureBuff.cs" />
     <Compile Include="Assets\Scripts\Buff\MoveSpeedBuff.cs" />
-    <Compile Include="Assets\Scripts\Component\BuffComponent.cs" />
-    <Compile Include="Assets\Scripts\Component\MoveComponent.cs" />
+    <Compile Include="Assets\Scripts\Component\BuffComp.cs" />
+    <Compile Include="Assets\Scripts\Component\MoveComp.cs" />
+    <Compile Include="Assets\Scripts\Component\SkillComp.cs" />
+    <Compile Include="Assets\Scripts\Component\TimerComp.cs" />
     <Compile Include="Assets\Scripts\DataCenter.cs" />
     <Compile Include="Assets\Scripts\Event\EventDef.cs" />
     <Compile Include="Assets\Scripts\Event\EventDispatcher.cs" />
     <Compile Include="Assets\Scripts\GlobalDef.cs" />
+    <Compile Include="Assets\Scripts\LogHelper.cs" />
     <Compile Include="Assets\Scripts\Manager\ConfigMgr.cs" />
     <Compile Include="Assets\Scripts\Manager\FightMgr.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Manager\InputMgr.cs" />
     <Compile Include="Assets\Scripts\Manager\ResMgr.cs" />
+    <Compile Include="Assets\Scripts\Skill\LogicTimer.cs" />
+    <Compile Include="Assets\Scripts\Skill\Skill.cs" />
     <Compile Include="Assets\Scripts\Target\TargetHelper.cs" />
     <Compile Include="Assets\Scripts\Unit\Hero.cs" />
     <Compile Include="Assets\Scripts\Unit\HeroHelper.cs" />

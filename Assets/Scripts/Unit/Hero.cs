@@ -10,8 +10,10 @@ public class Hero : Unit
     public UnitCfg UnitCfg;
 
     //todo 改成组件挂载
-    public BuffComponent BuffComponent;
-    public MoveComponent MoveComponent;
+    public BuffComp BuffComp;
+    public MoveComp MoveComp;
+    public SkillComp SkillComp;
+    public TimerComp TimerComp;
 
     public int NetIndex;
     public int HeroID;
@@ -58,8 +60,10 @@ public class Hero : Unit
         UnitCfg = ConfigMgr.Instance.GetUnitCfg(HeroCfg.UnitID);
         UnitType = UnitCfg.Type;
 
-        MoveComponent = new MoveComponent(this);
-        BuffComponent = new BuffComponent(this);
+        TimerComp = new TimerComp(this);
+        MoveComp = new MoveComp(this);
+        SkillComp = new SkillComp(this);
+        BuffComp = new BuffComp(this);
     }
 
     public void Start()
@@ -67,19 +71,27 @@ public class Hero : Unit
         hp = 50; // 模拟受伤回血
         speed = HeroCfg.MoveSpeed;
 
-        MoveComponent.LogicStart();
-        BuffComponent.LogicStart();
+        TimerComp.LogicStart();
+        MoveComp.LogicStart();
+        SkillComp.LogicStart();
+        BuffComp.LogicStart();
     }
 
     public void Tick()
     {
-        MoveComponent.LogicTick();
-        BuffComponent.LogicTick();
+        TimerComp.LogicTick();
+
+        MoveComp.LogicTick();
+        SkillComp.LogicTick();
+        BuffComp.LogicTick();
     }
 
     public void End()
     {
-        MoveComponent.LogicEnd();
-        BuffComponent.LogicEnd();
+        TimerComp.LogicEnd();
+
+        MoveComp.LogicEnd();
+        SkillComp.LogicEnd();
+        BuffComp.LogicEnd();
     }
 }

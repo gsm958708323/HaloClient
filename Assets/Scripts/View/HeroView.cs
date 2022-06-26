@@ -28,6 +28,8 @@ public class HeroView : UnitView
     /// </summary>
     int predictCount = 0;
 
+    int atkCount = 0;
+
     private void Awake()
     {
         EventDispatcher.instance.Regist<int, UIMoveState>((int)EventDef.UIMoveStateChange, OnMoveStateChange);
@@ -56,7 +58,7 @@ public class HeroView : UnitView
         hero = (Hero)unit;
 
         anim = GetComponentInChildren<Animation>();
-        moveSpeedBase = hero.MoveComponent.MoveSpeed;
+        moveSpeedBase = hero.MoveComp.MoveSpeed;
     }
 
     private void Start()
@@ -67,8 +69,8 @@ public class HeroView : UnitView
 
     private void Update()
     {
-        var pos = hero.MoveComponent.Position;
-        var dir = hero.MoveComponent.Direction;
+        var pos = hero.MoveComp.Position;
+        var dir = hero.MoveComp.Direction;
 
         if (pos == Vector3.zero)
             return;
@@ -89,9 +91,19 @@ public class HeroView : UnitView
         if (name == "walk")
         {
             //速度越大，动画过渡时间越小
-            float moveRate = hero.MoveComponent.MoveSpeed / moveSpeedBase;
+            float moveRate = hero.MoveComp.MoveSpeed / moveSpeedBase;
             anim[name].speed = moveRate;
             anim.CrossFade(name, GlobalDef.Instance.AnimFade / moveRate);
+        }
+        else if (name == "atk")
+        {
+            atkCount++;
+            if (atkCount > 3)
+            {
+                atkCount = 1;
+            }
+
+            anim.CrossFade($"atk{atkCount}", GlobalDef.Instance.AnimFade);
         }
         else
         {
@@ -124,12 +136,12 @@ public class HeroView : UnitView
         }
 
         //逻辑位置发生变化，以逻辑位置为准
-        if (hero.MoveComponent.isPosChange)
+        if (hero.MoveComp.isPosChange)
         {
             SetViewPos(pos);
             //SetViewDir(dir);
 
-            hero.MoveComponent.isPosChange = false;
+            hero.MoveComp.isPosChange = false;
             predictCount = 0;
 
             //Debug.LogError($"逻辑位置变化：{pos.x} {pos.z}");
@@ -140,7 +152,7 @@ public class HeroView : UnitView
                 return;
 
             //预测位置 = 方向 * 速度 * 时间
-            Vector3 predictPos = hero.MoveComponent.Direction * hero.MoveComponent.MoveSpeed * Time.deltaTime;
+            Vector3 predictPos = hero.MoveComp.Direction * hero.MoveComp.MoveSpeed * Time.deltaTime;
             AddViewPos(predictPos);
 
             //var temp = predictPos + transform.position;

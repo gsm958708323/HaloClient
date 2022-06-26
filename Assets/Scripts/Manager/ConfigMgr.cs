@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using cfg;
+using cfg.skill;
 
 public class ConfigMgr : MonoBehaviour
 {
@@ -32,6 +33,19 @@ public class ConfigMgr : MonoBehaviour
     {
         return tables;
     }
+    public cfg.skill.SkillCfg GetSkillCfg(int id)
+    {
+        var cfg = tables.TbSkill.GetOrDefault(id);
+        if (cfg == null)
+        {
+            UnityEngine.Debug.LogError($"未找到Skill：{id}");
+            return null;
+        }
+        else
+        {
+            return cfg;
+        }
+    }
 
     public cfg.unit.HeroCfg GetHeroCfg(int id)
     {
@@ -53,6 +67,20 @@ public class ConfigMgr : MonoBehaviour
         if (cfg == null)
         {
             UnityEngine.Debug.LogError($"未找到Unit：{id}");
+            return null;
+        }
+        else
+        {
+            return cfg;
+        }
+    }
+
+    public TargetCfg GetTargetCfg(int id)
+    {
+        var cfg = ConfigMgr.Instance.GetTables().TbTarget.GetOrDefault(id);
+        if (cfg == null)
+        {
+            UnityEngine.Debug.LogError($"未找到TargetCfg：{id}");
             return null;
         }
         else
