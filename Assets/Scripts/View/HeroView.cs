@@ -72,11 +72,16 @@ public class HeroView : UnitView
         var pos = hero.MoveComp.Position;
         var dir = hero.MoveComp.Direction;
 
-        if (pos == Vector3.zero)
-            return;
+        // 这里为了让客户端平滑进行，需要用到update来更新Time.deltaTime不断刷新，不能只更新变化的数据
+        if (pos != Vector3.zero)
+        {
+            UpdatePos(pos);
+        }
 
-        UpdatePos(pos, dir);
-        UpdateDir(dir);
+        if (dir != Vector3.zero)
+        {
+            UpdateDir(dir);
+        }
     }
 
     public void SetMainCamera(Transform trans)
@@ -111,8 +116,10 @@ public class HeroView : UnitView
         }
     }
 
-    private void UpdateDir(Vector3 dir)
+    public void UpdateDir(Vector3 dir)
     {
+        //LogHelper.Log($"更新玩家朝向 {dir.ToString()}");
+
         if (!GlobalDef.Instance.IsOpenPosPredict)
         {
             SetViewDir(dir);
@@ -127,8 +134,9 @@ public class HeroView : UnitView
         SetViewDir(smoothDir);
     }
 
-    void UpdatePos(Vector3 pos, Vector3 dir)
+    void UpdatePos(Vector3 pos)
     {
+        //LogHelper.Log($"更新玩家位置：{pos.ToString()}");
         if (!GlobalDef.Instance.IsOpenPosPredict)
         {
             SetViewPos(pos);
@@ -194,7 +202,7 @@ public class HeroView : UnitView
 
         if (cameraTrans != null)
         {
-            cameraTrans.position = transform.position;
+            cameraTrans.position = Vector3.Lerp(cameraTrans.position, gameObject.transform.position, Time.deltaTime * GlobalDef.Instance.CameraRate);
         }
     }
 }

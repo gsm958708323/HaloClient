@@ -63,6 +63,12 @@ public class MoveComp : Ilogic
         uiInput = Quaternion.Euler(0, 45, 0) * uiInput;
     }
 
+    public void LookAtTarget(Hero hero)
+    {
+        var dir = (hero.MoveComp.Position - this.Position).normalized;
+        Direction = dir;
+    }
+
     void SetMoveState(UIMoveState state)
     {
         this.UIMoveState = state;

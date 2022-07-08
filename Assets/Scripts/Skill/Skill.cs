@@ -53,7 +53,7 @@ public class Skill
             var targetList = TargetHelper.FindTargetByRule(owner, targetCfg);
             if (targetList != null)
             {
-                Start();
+                Start(targetList[0]);
             }
             else
             {
@@ -69,15 +69,14 @@ public class Skill
     /// <summary>
     /// 技能开始
     /// </summary>
-    void Start()
+    void Start(Hero target)
     {
         LogHelper.Log("技能开始");
         SetState(SkillState.Start);
 
-        //动作
-        //朝向
-
+        //动作，朝向
         owner.HeroView.PlayAnim(cfg.AnimName);
+        owner.MoveComp.LookAtTarget(target);
 
         if (cfg.SpellTime > 0)//存在技能前摇
         {
@@ -122,7 +121,10 @@ public class Skill
     /// </summary>
     void ToTarget()
     {
+        //击中音效
+
         //伤害计算
+        
         //伤害buff
     }
 

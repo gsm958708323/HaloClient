@@ -936,6 +936,7 @@ MonoBehaviour:
   SmoothDirRate: 100
   PredictMaxFrame: 20
   AnimFade: 0.25
+  CameraRate: 30
 --- !u!4 &1113304079
 Transform:
   m_ObjectHideFlags: 0

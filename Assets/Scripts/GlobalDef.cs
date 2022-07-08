@@ -45,5 +45,5 @@ public class GlobalDef : MonoBehaviour
 
     public float AnimFade = 0.25f;
 
-    public int CameraRate = 100;
+    public int CameraRate = 30;
 }
