@@ -18,24 +18,33 @@ public class Hero : Unit
     public int NetIndex;
     public int HeroID;
 
-    int speed;
     int hp;
 
-    public void ModifySpeed(int speed)
+    public void AddHp(int change)
     {
-        this.speed += speed;
-        UnityEngine.Debug.Log($"速度改变：{this.speed}");
+        if (change <= 0)
+        {
+            return;
+        }
+
+        this.hp += change;
     }
 
-    public int GetSpeed()
+    public void ReduceHp(int change)
     {
-        return speed;
-    }
+        if (change <= 0)
+        {
+            return;
+        }
 
-    public void ModifyHp(int hp)
-    {
-        this.hp += hp;
-        UnityEngine.Debug.Log($"血量改变：{this.hp}");
+        hp -= change;
+        if (hp < 0)
+        {
+            hp = 0;
+            unitState = UnitState.Dead;
+            EventDispatcher.instance.DispatchEvent((int)EventDef.HeroDeath, NetIndex);
+        }
+        UnityEngine.Debug.Log($"减少血量：{this.hp}");
     }
 
     public int GetHp()
@@ -68,8 +77,7 @@ public class Hero : Unit
 
     public void Start()
     {
-        hp = 50; // 模拟受伤回血
-        speed = HeroCfg.MoveSpeed;
+        hp = HeroCfg.Hp;
 
         TimerComp.LogicStart();
         MoveComp.LogicStart();
@@ -93,5 +101,9 @@ public class Hero : Unit
         MoveComp.LogicEnd();
         SkillComp.LogicEnd();
         BuffComp.LogicEnd();
+
+        HeroView = null;
+        HeroCfg = null;
+        UnitCfg = null;
     }
 }

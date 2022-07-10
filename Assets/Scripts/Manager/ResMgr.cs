@@ -13,6 +13,7 @@ public class ResMgr : MonoBehaviour
 
 
     Dictionary<string, GameObject> goCacheDict = new Dictionary<string, GameObject>();
+    Dictionary<string, AudioClip> aduioCacheDict = new Dictionary<string, AudioClip>();
 
     public GameObject LoadPrefab(string path)
     {
@@ -30,5 +31,22 @@ public class ResMgr : MonoBehaviour
 
         var go = GameObject.Instantiate(prefab);
         return go;
+    }
+
+    public AudioClip LoadAudio(string path)
+    {
+        if (!aduioCacheDict.TryGetValue(path, out AudioClip prefab))
+        {
+            prefab = Resources.Load<AudioClip>(path);
+            aduioCacheDict.Add(path, prefab);
+        }
+
+        if (prefab == null)
+        {
+            Debug.LogError($"创建声音失败: {path}");
+            return null;
+        }
+
+        return prefab;
     }
 }

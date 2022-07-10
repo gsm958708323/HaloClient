@@ -1273,6 +1273,7 @@ GameObject:
   - component: {fileID: 1397145994}
   - component: {fileID: 1397145993}
   - component: {fileID: 1397145995}
+  - component: {fileID: 1397145996}
   m_Layer: 0
   m_Name: GameMamager
   m_TagString: Untagged
@@ -1402,6 +1403,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!81 &1397145996
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397145992}
+  m_Enabled: 1
 --- !u!1 &1596015295
 GameObject:
   m_ObjectHideFlags: 0

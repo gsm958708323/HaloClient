@@ -20,9 +20,7 @@
     "Name": "后裔",
     "Type": 2,
     "ActiveSkill": [],
-    "PassiveSkill": [
-      100101
-    ],
+    "PassiveSkill": [],
     "Hp": 100,
     "Def": 100,
     "MoveSpeed": 5

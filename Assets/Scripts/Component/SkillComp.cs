@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class SkillComp : Ilogic
 {
-    List<Skill> skillList = new List<Skill>();
+    List<Skill> skillList;
     Hero owner;
 
     public SkillComp(Hero hero)
@@ -29,6 +29,7 @@ public class SkillComp : Ilogic
 
     public void LogicStart()
     {
+        skillList = new List<Skill>();
         //初始化主动技能
         foreach (int id in owner.HeroCfg.ActiveSkill)
         {
@@ -39,11 +40,24 @@ public class SkillComp : Ilogic
 
     public void LogicEnd()
     {
-        skillList.Clear();
+        skillList = null;
+        owner = null;
     }
 
     public void LogicTick()
     {
+    }
+
+    /// <summary>
+    /// 技能伤害计算
+    /// </summary>
+    public void GetDamage(cfg.skill.SkillCfg cfg)
+    {
+        int damage = cfg.Damage;
+        if (damage > 0)
+        {
+            owner.ReduceHp(damage);
+        }
     }
 }
 

@@ -28,7 +28,7 @@ public sealed class BuffCfg :  Bright.Config.BeanBase
         { if(!_json["Param"].IsNumber) { throw new SerializationException(); }  Param = _json["Param"]; }
     }
 
-    public BuffCfg(int ID, string Name, buff.BuffType Type, buff.BuffAttach Attach, int Delay, int Interval, int Duration, int Param ) 
+    public BuffCfg(int ID, string Name, buff.BuffType Type, buff.BuffAttach Attach, int Delay, int Interval, int Duration, float Param ) 
     {
         this.ID = ID;
         this.Name = Name;
@@ -70,7 +70,7 @@ public sealed class BuffCfg :  Bright.Config.BeanBase
     /// <summary>
     /// 参数
     /// </summary>
-    public int Param { get; private set; }
+    public float Param { get; private set; }
 
     public const int __ID__ = -2108463018;
     public override int GetTypeId() => __ID__;

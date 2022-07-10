@@ -33,6 +33,12 @@ public class HeroView : UnitView
     private void Awake()
     {
         EventDispatcher.instance.Regist<int, UIMoveState>((int)EventDef.UIMoveStateChange, OnMoveStateChange);
+        EventDispatcher.instance.Regist<int>((int)EventDef.HeroDeath, OnHeroDeath);
+    }
+
+    private void OnHeroDeath(int index)
+    {
+        PlayAnim("death");
     }
 
     private void OnMoveStateChange(int netIndex, UIMoveState state)

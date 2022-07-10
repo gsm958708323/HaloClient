@@ -22,4 +22,6 @@ public enum EventDef
     /// 玩家移动状态变化
     /// </summary>
     UIMoveStateChange = 2,
+
+    HeroDeath = 3,
 }

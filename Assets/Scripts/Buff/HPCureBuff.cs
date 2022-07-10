@@ -21,12 +21,12 @@ public class HPCureBuff : Buff
     public override void Start()
     {
         base.Start();
-        change = from.HeroCfg.Hp * Cfg.Param / 100;
+        change = from.HeroCfg.Hp * (int)Cfg.Param / 100;
     }
 
     public override void Tick()
     {
         base.Tick();
-        from.ModifyHp(change);
+        from.AddHp(change);
     }
 }

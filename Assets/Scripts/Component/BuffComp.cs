@@ -10,7 +10,7 @@ using cfg.buff;
 
 public class BuffComp : Ilogic
 {
-    List<Buff> buffList = new List<Buff>();
+    List<Buff> buffList;
     Hero owner;
 
     public BuffComp(Hero hero)
@@ -42,6 +42,7 @@ public class BuffComp : Ilogic
 
     public void LogicStart()
     {
+        buffList = new List<Buff>();
         //初始化被动buff
         foreach (int id in owner.HeroCfg.PassiveSkill)
         {
@@ -66,5 +67,7 @@ public class BuffComp : Ilogic
 
     public void LogicEnd()
     {
+        buffList = null;
+        owner = null;
     }
 }

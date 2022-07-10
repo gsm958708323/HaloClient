@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class TimerComp : Ilogic
 {
-    List<LogicTimer> timerList = new List<LogicTimer>();
+    List<LogicTimer> timerList;
     private Hero hero;
 
     public TimerComp(Hero hero)
@@ -19,9 +19,17 @@ public class TimerComp : Ilogic
 
     public void LogicStart()
     {
+        timerList = new List<LogicTimer>();
     }
+
     public void LogicEnd()
     {
+        foreach (var timer in timerList)
+        {
+            timer.End();
+        }
+        timerList = null;
+        hero = null;
     }
 
     public void LogicTick()

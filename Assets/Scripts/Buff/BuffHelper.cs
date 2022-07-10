@@ -10,20 +10,6 @@ using cfg.buff;
 
 public static class BuffHelper
 {
-    public static BuffCfg GetBuffCfg(int ID)
-    {
-        var cfg = ConfigMgr.Instance.GetTables().TbBuff.GetOrDefault(ID);
-        if (cfg == null)
-        {
-            UnityEngine.Debug.LogError($"buff配置不存在：{ID}");
-            return null;
-        }
-        else
-        {
-            return cfg;
-        }
-    }
-
     private static Dictionary<BuffType, Type> dictBuff2Class = new Dictionary<BuffType, Type>();
     private static Dictionary<int, Buff> dictBuff2Inst = new Dictionary<int, Buff>();
 
@@ -60,7 +46,7 @@ public static class BuffHelper
             return buff;
         }
 
-        var cfg = GetBuffCfg(ID);
+        var cfg = ConfigMgr.Instance.GetBuffCfg(ID);
         Type buffCls;
         dictBuff2Class.TryGetValue(cfg.Type, out buffCls);
         if (buffCls != null)

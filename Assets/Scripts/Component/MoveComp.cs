@@ -19,30 +19,38 @@ public class MoveComp : Ilogic
     /// <summary>
     /// 校验之后的位置
     /// </summary>
-    public Vector3 Position = Vector3.zero;
+    public Vector3 Position;
 
     /// <summary>
     /// 校验之后的方向
     /// </summary>
-    public Vector3 Direction = Vector3.zero;
-    public bool isPosChange = false;
+    public Vector3 Direction;
+    public bool isPosChange;
 
     /// <summary>
     /// 逻辑速度
     /// </summary>
-    public int MoveSpeed;
+    public float MoveSpeed;
 
     /// <summary>
     /// ui输入的数据
     /// </summary>
-    Vector3 uiInput = Vector3.zero;
+    Vector3 uiInput;
 
-    public UIMoveState UIMoveState = UIMoveState.Up;
+    public UIMoveState UIMoveState;
 
     public MoveComp(Hero hero)
     {
         owner = hero;
         MoveSpeed = hero.HeroCfg.MoveSpeed;
+        isPosChange = false;
+        UIMoveState = UIMoveState.Up;
+    }
+
+    public void AddSpeed(float speed)
+    {
+        this.MoveSpeed += speed;
+        UnityEngine.Debug.Log($"速度改变：{this.MoveSpeed}");
     }
 
     public void InputMove(float h, float v)
@@ -77,6 +85,7 @@ public class MoveComp : Ilogic
 
     public void LogicEnd()
     {
+        owner = null;
     }
 
     public void LogicStart()

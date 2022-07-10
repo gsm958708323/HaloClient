@@ -6,8 +6,8 @@
     "Attach": 1,
     "Delay": 0,
     "Interval": 0,
-    "Duration": 1000,
-    "Param": 30
+    "Duration": 3000,
+    "Param": 100
   },
   {
     "ID": 100102,

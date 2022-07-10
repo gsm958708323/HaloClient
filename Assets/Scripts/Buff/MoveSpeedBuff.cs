@@ -10,7 +10,7 @@ using cfg.buff;
 [BuffType(BuffType.MoveSpeed)]
 public class MoveSpeedBuff : Buff
 {
-    private int speedChange;
+    private float speedChange;
     private Hero target;
 
     public MoveSpeedBuff(int ID, Hero from, Hero to, object[] args)
@@ -24,14 +24,16 @@ public class MoveSpeedBuff : Buff
         base.Start();
 
         target = (Cfg.Attach == BuffAttach.Target) ? to : from;
-        speedChange = target.GetSpeed() * Cfg.Param / 100;
+        speedChange = target.MoveComp.MoveSpeed * (Cfg.Param / 100);
 
-        target.ModifySpeed(speedChange);
+        target.MoveComp.AddSpeed(speedChange);
+        LogHelper.Log("增加移速buff开始");
     }
 
     public override void End()
     {
         base.End();
-        target.ModifySpeed(-speedChange);
+        target.MoveComp.AddSpeed(-speedChange);
+        LogHelper.Log("增加移速buff结束");
     }
 }

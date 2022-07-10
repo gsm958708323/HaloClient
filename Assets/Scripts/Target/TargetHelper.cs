@@ -97,7 +97,11 @@ public static class TargetHelper
                 minDis = dis;
             }
         }
-        UnityEngine.Debug.Log($"单人目标最短距离：{minDis} {target.HeroCfg.Name}");
+
+        if (target != null)
+        {
+            UnityEngine.Debug.Log($"单人目标最短距离：{minDis} {target.HeroCfg.Name}");
+        }
 
         if (minDis < cfg.AttackDis)
         {

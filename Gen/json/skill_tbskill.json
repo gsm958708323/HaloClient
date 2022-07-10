@@ -3,18 +3,20 @@
     "ID": 100101,
     "Name": "亚瑟普攻",
     "ReleaseType": 1,
-    "Damage": 45,
+    "Damage": 3,
     "TargetCfg": 100101,
     "BulletCfg": 0,
-    "BuffList": [],
+    "BuffList": [
+      100101
+    ],
     "CdTime": 0,
     "SpellTime": 800,
     "SkillTime": 1400,
     "IsNormalAttack": true,
     "IconName": "",
     "AnimName": "atk",
-    "AudioStart": "",
+    "AudioStart": "arthur_ska_rls",
     "AudioWork": "",
-    "AudioHit": ""
+    "AudioHit": "arthur_ska_hit"
   }
 ]

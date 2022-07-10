@@ -5,8 +5,10 @@
 * ==============================================================================*/
 
 using cfg.skill;
+using cfg.buff;
 using System.Collections;
 using System.Collections.Generic;
+
 
 public enum SkillState
 {
@@ -22,6 +24,7 @@ public class Skill
     TargetCfg targetCfg;
     int id;
     Hero owner;
+    Hero target;
 
     public Skill(int id, Hero hero)
     {
@@ -71,12 +74,18 @@ public class Skill
     /// </summary>
     void Start(Hero target)
     {
+        this.target = target;
+
         LogHelper.Log("技能开始");
         SetState(SkillState.Start);
 
         //动作，朝向
         owner.HeroView.PlayAnim(cfg.AnimName);
         owner.MoveComp.LookAtTarget(target);
+        if (!string.IsNullOrEmpty(cfg.AudioStart))
+        {
+            AudioMgr.Instance.PlayAudio(cfg.AudioStart);
+        }
 
         if (cfg.SpellTime > 0)//存在技能前摇
         {
@@ -121,11 +130,30 @@ public class Skill
     /// </summary>
     void ToTarget()
     {
+        if (target == null)
+            return;
+
         //击中音效
+        if (!string.IsNullOrEmpty(cfg.AudioHit))
+        {
+            AudioMgr.Instance.PlayAudio(cfg.AudioHit);
+        }
 
         //伤害计算
-        
+        if (cfg.Damage != 0)
+        {
+            target.SkillComp.GetDamage(cfg);
+        }
+
         //伤害buff
+        foreach (int id in cfg.BuffList)
+        {
+            var buffCfg = ConfigMgr.Instance.GetBuffCfg(id);
+            if (buffCfg != null && buffCfg.Attach == BuffAttach.Target)
+            {
+                target.BuffComp.CreateBuff(id);
+            }
+        }
     }
 
     /// <summary>
@@ -133,7 +161,14 @@ public class Skill
     /// </summary>
     void ToMySelf()
     {
-
+        foreach (int id in cfg.BuffList)
+        {
+            var buffCfg = ConfigMgr.Instance.GetBuffCfg(id);
+            if (buffCfg != null && buffCfg.Attach == BuffAttach.Caster)
+            {
+                owner.BuffComp.CreateBuff(id);
+            }
+        }
     }
 
     void End()
@@ -141,6 +176,6 @@ public class Skill
         LogHelper.Log("技能结束");
 
         SetState(SkillState.End);
-        //动作
+        this.target = null;
     }
 }

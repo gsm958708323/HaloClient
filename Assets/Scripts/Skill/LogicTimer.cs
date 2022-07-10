@@ -31,10 +31,15 @@ public class LogicTimer
         if (count >= targetMs)
         {
             cb?.Invoke();
-            cb = null;
-            targetMs = 0;
-            SetState(TimerState.End);
+            End();
         }
+    }
+
+    public void End()
+    {
+        cb = null;
+        targetMs = 0;
+        SetState(TimerState.End);
     }
 
     public TimerState GetState()

@@ -24,6 +24,7 @@ public class FightMgr : MonoBehaviour
 
     Transform cameraTrans;
     Transform heroTrans;
+    int removeIndex = -1;
 
     void Awake()
     {
@@ -31,7 +32,21 @@ public class FightMgr : MonoBehaviour
         InitHelper();
         AddListener();
     }
+    void InitHelper()
+    {
+        BuffHelper.InitBuffCfg();
+    }
 
+    private void AddListener()
+    {
+        EventDispatcher.instance.Regist<int, float, float>((int)EventDef.InputMoveEvent, OnHeroMoveUpdate);
+        EventDispatcher.instance.Regist<int>((int)EventDef.HeroDeath, OnHeroDeath);
+    }
+    private void OnHeroDeath(int index)
+    {
+
+        removeIndex = index;
+    }
 
     void Start()
     {
@@ -46,18 +61,19 @@ public class FightMgr : MonoBehaviour
         hero.HeroView.SetMainCamera(cameraTrans);
     }
 
-    void InitHelper()
-    {
-        BuffHelper.InitBuffCfg();
-    }
-
-
     private void Update()
     {
         if (timer >= GlobalDef.Instance.LogicFrameIntervelSec)
         {
             //Debug.LogWarning($"调用一帧： {timer}");
             timer = 0;
+            if (removeIndex >= 0 && removeIndex < heroList.Count)
+            {
+                heroList[removeIndex].End();
+                heroList.RemoveAt(removeIndex);
+                removeIndex = -1;
+            }
+
             foreach (var hero in heroList)
             {
                 hero.Tick();
@@ -87,10 +103,6 @@ public class FightMgr : MonoBehaviour
         allUnitDict.Clear();
     }
 
-    private void AddListener()
-    {
-        EventDispatcher.instance.Regist<int, float, float>((int)EventDef.InputMoveEvent, OnHeroMoveUpdate);
-    }
 
     private void OnHeroMoveUpdate(int heroIndex, float h, float v)
     {

@@ -27,7 +27,7 @@ public abstract class Buff : Ilogic
         this.to = to;
         this.ID = ID;
         this.args = args;
-        this.Cfg = BuffHelper.GetBuffCfg(ID);
+        this.Cfg = ConfigMgr.Instance.GetBuffCfg(ID);
     }
 
     public void LogicStart()
@@ -45,7 +45,7 @@ public abstract class Buff : Ilogic
             // todo 当前帧还是下一帧？
             ChangeState(BuffState.Start);
         }
-        UnityEngine.Debug.Log($"Buff Duration: {Cfg.Duration}, Interval: {Cfg.Interval}, Delay: {Cfg.Delay}");
+        LogHelper.LogGreen($"Buff {Cfg.Name} Duration: {Cfg.Duration}, Interval: {Cfg.Interval}, Delay: {Cfg.Delay}");
     }
 
     public void LogicTick()
@@ -77,7 +77,7 @@ public abstract class Buff : Ilogic
         else if (state == BuffState.Tick)
         {
             //固定间隔执行Tick
-            int deltaTime = (int)GlobalDef.Instance.LogicFrameIntervelSec * 1000;
+            int deltaTime = (int)(GlobalDef.Instance.LogicFrameIntervelSec * 1000);
 
             intervalCount -= deltaTime;
             //UnityEngine.Debug.Log($"intervalCount: {intervalCount}");

@@ -25,14 +25,22 @@ public class ConfigMgr : MonoBehaviour
                 File.ReadAllText($"{Application.dataPath}/../Gen/json/{file}.json")
             )
         );
-        var item = tables.TbBuff.Get(100101);
-        print($"{item.ID} {item.Name}");
     }
 
-    public Tables GetTables()
+    public cfg.buff.BuffCfg GetBuffCfg(int ID)
     {
-        return tables;
+        var cfg = tables.TbBuff.GetOrDefault(ID);
+        if (cfg == null)
+        {
+            UnityEngine.Debug.LogError($"buff配置不存在：{ID}");
+            return null;
+        }
+        else
+        {
+            return cfg;
+        }
     }
+
     public cfg.skill.SkillCfg GetSkillCfg(int id)
     {
         var cfg = tables.TbSkill.GetOrDefault(id);
@@ -77,7 +85,7 @@ public class ConfigMgr : MonoBehaviour
 
     public TargetCfg GetTargetCfg(int id)
     {
-        var cfg = ConfigMgr.Instance.GetTables().TbTarget.GetOrDefault(id);
+        var cfg = tables.TbTarget.GetOrDefault(id);
         if (cfg == null)
         {
             UnityEngine.Debug.LogError($"未找到TargetCfg：{id}");

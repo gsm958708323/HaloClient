@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
         gameObject.AddComponent<FightMgr>();
         gameObject.AddComponent<ResMgr>();
         gameObject.AddComponent<InputMgr>();
+        gameObject.AddComponent<AudioMgr>();
     }
 
     void Start()

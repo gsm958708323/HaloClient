@@ -29,7 +29,7 @@ public sealed class HeroCfg :  Bright.Config.BeanBase
         { if(!_json["MoveSpeed"].IsNumber) { throw new SerializationException(); }  MoveSpeed = _json["MoveSpeed"]; }
     }
 
-    public HeroCfg(int ID, int UnitID, string Name, unit.HeroType Type, System.Collections.Generic.List<int> ActiveSkill, System.Collections.Generic.List<int> PassiveSkill, int Hp, int Def, int MoveSpeed ) 
+    public HeroCfg(int ID, int UnitID, string Name, unit.HeroType Type, System.Collections.Generic.List<int> ActiveSkill, System.Collections.Generic.List<int> PassiveSkill, int Hp, int Def, float MoveSpeed ) 
     {
         this.ID = ID;
         this.UnitID = UnitID;
@@ -55,7 +55,7 @@ public sealed class HeroCfg :  Bright.Config.BeanBase
     public System.Collections.Generic.List<int> PassiveSkill { get; private set; }
     public int Hp { get; private set; }
     public int Def { get; private set; }
-    public int MoveSpeed { get; private set; }
+    public float MoveSpeed { get; private set; }
 
     public const int __ID__ = 497105792;
     public override int GetTypeId() => __ID__;
