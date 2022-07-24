@@ -6,9 +6,7 @@
     "Damage": 3,
     "TargetCfg": 100101,
     "BulletCfg": 0,
-    "BuffList": [
-      100101
-    ],
+    "BuffList": [],
     "CdTime": 0,
     "SpellTime": 800,
     "SkillTime": 1400,
@@ -18,5 +16,44 @@
     "AudioStart": "arthur_ska_rls",
     "AudioWork": "",
     "AudioHit": "arthur_ska_hit"
+  },
+  {
+    "ID": 100102,
+    "Name": "亚瑟强化普攻",
+    "ReleaseType": 1,
+    "Damage": 10,
+    "TargetCfg": 100101,
+    "BulletCfg": 0,
+    "BuffList": [],
+    "CdTime": 0,
+    "SpellTime": 800,
+    "SkillTime": 1400,
+    "IsNormalAttack": true,
+    "IconName": "",
+    "AnimName": "sk1_atk",
+    "AudioStart": "arthur_ska_rls",
+    "AudioWork": "",
+    "AudioHit": "arthur_sk1_rls2"
+  },
+  {
+    "ID": 100103,
+    "Name": "誓约圣盾",
+    "ReleaseType": 1,
+    "Damage": 0,
+    "TargetCfg": 100101,
+    "BulletCfg": 0,
+    "BuffList": [
+      1001,
+      100101
+    ],
+    "CdTime": 5000,
+    "SpellTime": 0,
+    "SkillTime": 0,
+    "IsNormalAttack": false,
+    "IconName": "",
+    "AnimName": "",
+    "AudioStart": "arthur_sk1_rls",
+    "AudioWork": "",
+    "AudioHit": ""
   }
 ]

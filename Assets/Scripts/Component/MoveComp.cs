@@ -33,6 +33,11 @@ public class MoveComp : Ilogic
     public float MoveSpeed;
 
     /// <summary>
+    /// 初始速度，不受当前变化速度影响
+    /// </summary>
+    public float MoveSpeedBase;
+
+    /// <summary>
     /// ui输入的数据
     /// </summary>
     Vector3 uiInput;
@@ -43,6 +48,7 @@ public class MoveComp : Ilogic
     {
         owner = hero;
         MoveSpeed = hero.HeroCfg.MoveSpeed;
+        MoveSpeedBase = MoveSpeed;
         isPosChange = false;
         UIMoveState = UIMoveState.Up;
     }
@@ -51,6 +57,11 @@ public class MoveComp : Ilogic
     {
         this.MoveSpeed += speed;
         UnityEngine.Debug.Log($"速度改变：{this.MoveSpeed}");
+    }
+
+    public void ResetSpeed()
+    {
+        this.MoveSpeed = MoveSpeedBase;
     }
 
     public void InputMove(float h, float v)

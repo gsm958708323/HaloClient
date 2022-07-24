@@ -25,10 +25,11 @@ public sealed class BuffCfg :  Bright.Config.BeanBase
         { if(!_json["Delay"].IsNumber) { throw new SerializationException(); }  Delay = _json["Delay"]; }
         { if(!_json["Interval"].IsNumber) { throw new SerializationException(); }  Interval = _json["Interval"]; }
         { if(!_json["Duration"].IsNumber) { throw new SerializationException(); }  Duration = _json["Duration"]; }
-        { if(!_json["Param"].IsNumber) { throw new SerializationException(); }  Param = _json["Param"]; }
+        { var _json1 = _json["Param"]; if(!_json1.IsArray) { throw new SerializationException(); } Param = new System.Collections.Generic.List<float>(_json1.Count); foreach(JSONNode __e in _json1.Children) { float __v;  { if(!__e.IsNumber) { throw new SerializationException(); }  __v = __e; }  Param.Add(__v); }   }
+        { if(!_json["EndEvent"].IsNumber) { throw new SerializationException(); }  EndEvent = (skill.BattleEvent)_json["EndEvent"].AsInt; }
     }
 
-    public BuffCfg(int ID, string Name, buff.BuffType Type, buff.BuffAttach Attach, int Delay, int Interval, int Duration, float Param ) 
+    public BuffCfg(int ID, string Name, buff.BuffType Type, buff.BuffAttach Attach, int Delay, int Interval, int Duration, System.Collections.Generic.List<float> Param, skill.BattleEvent EndEvent ) 
     {
         this.ID = ID;
         this.Name = Name;
@@ -38,6 +39,7 @@ public sealed class BuffCfg :  Bright.Config.BeanBase
         this.Interval = Interval;
         this.Duration = Duration;
         this.Param = Param;
+        this.EndEvent = EndEvent;
     }
 
     public static BuffCfg DeserializeBuffCfg(JSONNode _json)
@@ -70,7 +72,8 @@ public sealed class BuffCfg :  Bright.Config.BeanBase
     /// <summary>
     /// 参数
     /// </summary>
-    public float Param { get; private set; }
+    public System.Collections.Generic.List<float> Param { get; private set; }
+    public skill.BattleEvent EndEvent { get; private set; }
 
     public const int __ID__ = -2108463018;
     public override int GetTypeId() => __ID__;
@@ -93,7 +96,8 @@ public sealed class BuffCfg :  Bright.Config.BeanBase
         + "Delay:" + Delay + ","
         + "Interval:" + Interval + ","
         + "Duration:" + Duration + ","
-        + "Param:" + Param + ","
+        + "Param:" + Bright.Common.StringUtil.CollectionToString(Param) + ","
+        + "EndEvent:" + EndEvent + ","
         + "}";
     }
     }

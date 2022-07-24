@@ -26,8 +26,19 @@ public class Hero : Unit
         {
             return;
         }
+        if (this.hp >= HeroCfg.Hp)
+        {
+            return;
+        }
 
         this.hp += change;
+
+        if (this.hp > HeroCfg.Hp)
+        {
+            this.hp = HeroCfg.Hp;
+        }
+
+        LogHelper.Log($"增加血量：{hp}");
     }
 
     public void ReduceHp(int change)
@@ -44,7 +55,7 @@ public class Hero : Unit
             unitState = UnitState.Dead;
             EventDispatcher.instance.DispatchEvent((int)EventDef.HeroDeath, NetIndex);
         }
-        UnityEngine.Debug.Log($"减少血量：{this.hp}");
+        LogHelper.Log($"减少血量：{this.hp}");
     }
 
     public int GetHp()

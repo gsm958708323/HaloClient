@@ -5,9 +5,10 @@
     "Name": "亚瑟",
     "Type": 1,
     "ActiveSkill": [
-      100101
+      100101,
+      100103
     ],
-    "PassiveSkill": [
+    "PassiveBuff": [
       100102
     ],
     "Hp": 100,
@@ -20,7 +21,7 @@
     "Name": "后裔",
     "Type": 2,
     "ActiveSkill": [],
-    "PassiveSkill": [],
+    "PassiveBuff": [],
     "Hp": 100,
     "Def": 100,
     "MoveSpeed": 5

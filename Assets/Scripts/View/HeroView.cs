@@ -19,11 +19,6 @@ public class HeroView : UnitView
     public Transform cameraTrans;
 
     /// <summary>
-    /// 记录初始速度
-    /// </summary>
-    float moveSpeedBase;
-
-    /// <summary>
     /// 当前预测帧
     /// </summary>
     int predictCount = 0;
@@ -64,7 +59,6 @@ public class HeroView : UnitView
         hero = (Hero)unit;
 
         anim = GetComponentInChildren<Animation>();
-        moveSpeedBase = hero.MoveComp.MoveSpeed;
     }
 
     private void Start()
@@ -102,7 +96,7 @@ public class HeroView : UnitView
         if (name == "walk")
         {
             //速度越大，动画过渡时间越小
-            float moveRate = hero.MoveComp.MoveSpeed / moveSpeedBase;
+            float moveRate = hero.MoveComp.MoveSpeed / hero.MoveComp.MoveSpeedBase;
             anim[name].speed = moveRate;
             anim.CrossFade(name, GlobalDef.Instance.AnimFade / moveRate);
         }

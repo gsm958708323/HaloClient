@@ -1,5 +1,19 @@
 [
   {
+    "ID": 1001,
+    "Name": "技能替换",
+    "Type": 3,
+    "Attach": 1,
+    "Delay": 0,
+    "Interval": 0,
+    "Duration": 3000,
+    "Param": [
+      100101,
+      100102
+    ],
+    "EndEvent": 1002
+  },
+  {
     "ID": 100101,
     "Name": "加速",
     "Type": 1,
@@ -7,7 +21,10 @@
     "Delay": 0,
     "Interval": 0,
     "Duration": 3000,
-    "Param": 100
+    "Param": [
+      100
+    ],
+    "EndEvent": 1001
   },
   {
     "ID": 100102,
@@ -17,6 +34,9 @@
     "Delay": 0,
     "Interval": 2000,
     "Duration": -1,
-    "Param": 2
+    "Param": [
+      2
+    ],
+    "EndEvent": 1001
   }
 ]

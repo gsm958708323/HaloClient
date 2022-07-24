@@ -15,6 +15,7 @@ public class SkillComp : Ilogic
     {
         if (index >= 0 && index < skillList.Count)
         {
+            //技能结束时，才能释放下一个技能
             Skill skill = skillList[index];
             if (skill.GetState() == SkillState.End)
             {
@@ -25,6 +26,35 @@ public class SkillComp : Ilogic
         {
             LogHelper.LogError($"使用技能不存在 {index}");
         }
+    }
+
+    Skill TryGetSkill(int id)
+    {
+        foreach (Skill skill in skillList)
+        {
+            if (skill.ID == id)
+            {
+                return skill;
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 替换技能数据
+    /// </summary>
+    /// <param name="fromId"></param>
+    /// <param name="toId"></param>
+    public void ModifySkill(int fromId, int toId)
+    {
+        var fromSkill = TryGetSkill(fromId);
+        if (fromSkill == null)
+        {
+            LogHelper.LogError($"未找到此技能:{fromId}");
+            return;
+        }
+
+        fromSkill.ModifyCfg(toId);
     }
 
     public void LogicStart()

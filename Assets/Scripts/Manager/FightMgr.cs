@@ -40,8 +40,19 @@ public class FightMgr : MonoBehaviour
     private void AddListener()
     {
         EventDispatcher.instance.Regist<int, float, float>((int)EventDef.InputMoveEvent, OnHeroMoveUpdate);
+        EventDispatcher.instance.Regist<int, int>((int)EventDef.InputSkillEvent, OnInputSkillEvent);
         EventDispatcher.instance.Regist<int>((int)EventDef.HeroDeath, OnHeroDeath);
     }
+
+    private void OnInputSkillEvent(int netIndex, int skillIndex)
+    {
+        var hero = GetHeroByIndex(netIndex);
+        if (hero != null)
+        {
+            hero.SkillComp.UseSkill(skillIndex);
+        }
+    }
+
     private void OnHeroDeath(int index)
     {
 
@@ -81,20 +92,6 @@ public class FightMgr : MonoBehaviour
         }
         timer += Time.deltaTime;
         //print($"计时器： {timer}");
-        TestUpdate();
-    }
-
-    // todo 删除
-    void TestUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            var hero = GetHeroByIndex(DataCenter.GetMyNetIndex());
-            if (hero != null)
-            {
-                hero.SkillComp.UseSkill(0);
-            }
-        }
     }
 
     private void OnDestroy()

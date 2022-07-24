@@ -16,7 +16,7 @@ public abstract class Buff : Ilogic
     protected int ID;
     protected object[] args;
 
-    BuffState state = BuffState.None;
+    BuffState state;
     int delayCount;
     int durationCount;
     int intervalCount;
@@ -42,12 +42,14 @@ public abstract class Buff : Ilogic
         }
         else
         {
-            // todo 当前帧还是下一帧？
-            ChangeState(BuffState.Start);
+            state = BuffState.Start;
         }
         LogHelper.LogGreen($"Buff {Cfg.Name} Duration: {Cfg.Duration}, Interval: {Cfg.Interval}, Delay: {Cfg.Delay}");
     }
-
+    /// <summary>
+    /// 状态在下一帧才会生效
+    /// 防止在当前帧头时修改状态，帧尾还原时状态丢失
+    /// </summary>
     public void LogicTick()
     {
         if (state == BuffState.Delay)
@@ -58,15 +60,16 @@ public abstract class Buff : Ilogic
             if (delayCount <= 0)
             {
                 delayCount = 0;
-                ChangeState(BuffState.Start);
+                state = BuffState.Start;
             }
         }
         else if (state == BuffState.Start)
         {
+            Start();
             // -1为永久，0为瞬时，>0是计时
             if (Cfg.Duration == 0)
             {
-                ChangeState(BuffState.End);
+                state = BuffState.End;
             }
             else
             {
@@ -96,12 +99,14 @@ public abstract class Buff : Ilogic
                 if (durationCount <= 0)
                 {
                     durationCount = 0;
-                    ChangeState(BuffState.End);
+                    state = BuffState.End;
                 }
             }
         }
         else if (state == BuffState.End)
         {
+            End();
+            //None状态用来标记回收状态
             state = BuffState.None;
         }
         else
@@ -117,18 +122,6 @@ public abstract class Buff : Ilogic
     public void ChangeState(BuffState state)
     {
         this.state = state;
-        if (state == BuffState.Start)
-        {
-            Start();
-        }
-        else if (state == BuffState.End)
-        {
-            End();
-        }
-        else if (state == BuffState.Tick)
-        {
-            Tick();
-        }
     }
 
     public BuffState GetState()

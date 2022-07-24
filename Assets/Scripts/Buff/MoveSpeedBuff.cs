@@ -24,7 +24,7 @@ public class MoveSpeedBuff : Buff
         base.Start();
 
         target = (Cfg.Attach == BuffAttach.Target) ? to : from;
-        speedChange = target.MoveComp.MoveSpeed * (Cfg.Param / 100);
+        speedChange = target.MoveComp.MoveSpeedBase * (Cfg.Param[0] / 100);
 
         target.MoveComp.AddSpeed(speedChange);
         LogHelper.Log("增加移速buff开始");
@@ -33,7 +33,7 @@ public class MoveSpeedBuff : Buff
     public override void End()
     {
         base.End();
-        target.MoveComp.AddSpeed(-speedChange);
+        target.MoveComp.ResetSpeed();
         LogHelper.Log("增加移速buff结束");
     }
 }

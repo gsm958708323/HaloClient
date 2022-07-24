@@ -23,20 +23,20 @@ public sealed class HeroCfg :  Bright.Config.BeanBase
         { if(!_json["Name"].IsString) { throw new SerializationException(); }  Name = _json["Name"]; }
         { if(!_json["Type"].IsNumber) { throw new SerializationException(); }  Type = (unit.HeroType)_json["Type"].AsInt; }
         { var _json1 = _json["ActiveSkill"]; if(!_json1.IsArray) { throw new SerializationException(); } ActiveSkill = new System.Collections.Generic.List<int>(_json1.Count); foreach(JSONNode __e in _json1.Children) { int __v;  { if(!__e.IsNumber) { throw new SerializationException(); }  __v = __e; }  ActiveSkill.Add(__v); }   }
-        { var _json1 = _json["PassiveSkill"]; if(!_json1.IsArray) { throw new SerializationException(); } PassiveSkill = new System.Collections.Generic.List<int>(_json1.Count); foreach(JSONNode __e in _json1.Children) { int __v;  { if(!__e.IsNumber) { throw new SerializationException(); }  __v = __e; }  PassiveSkill.Add(__v); }   }
+        { var _json1 = _json["PassiveBuff"]; if(!_json1.IsArray) { throw new SerializationException(); } PassiveBuff = new System.Collections.Generic.List<int>(_json1.Count); foreach(JSONNode __e in _json1.Children) { int __v;  { if(!__e.IsNumber) { throw new SerializationException(); }  __v = __e; }  PassiveBuff.Add(__v); }   }
         { if(!_json["Hp"].IsNumber) { throw new SerializationException(); }  Hp = _json["Hp"]; }
         { if(!_json["Def"].IsNumber) { throw new SerializationException(); }  Def = _json["Def"]; }
         { if(!_json["MoveSpeed"].IsNumber) { throw new SerializationException(); }  MoveSpeed = _json["MoveSpeed"]; }
     }
 
-    public HeroCfg(int ID, int UnitID, string Name, unit.HeroType Type, System.Collections.Generic.List<int> ActiveSkill, System.Collections.Generic.List<int> PassiveSkill, int Hp, int Def, float MoveSpeed ) 
+    public HeroCfg(int ID, int UnitID, string Name, unit.HeroType Type, System.Collections.Generic.List<int> ActiveSkill, System.Collections.Generic.List<int> PassiveBuff, int Hp, int Def, float MoveSpeed ) 
     {
         this.ID = ID;
         this.UnitID = UnitID;
         this.Name = Name;
         this.Type = Type;
         this.ActiveSkill = ActiveSkill;
-        this.PassiveSkill = PassiveSkill;
+        this.PassiveBuff = PassiveBuff;
         this.Hp = Hp;
         this.Def = Def;
         this.MoveSpeed = MoveSpeed;
@@ -52,7 +52,7 @@ public sealed class HeroCfg :  Bright.Config.BeanBase
     public string Name { get; private set; }
     public unit.HeroType Type { get; private set; }
     public System.Collections.Generic.List<int> ActiveSkill { get; private set; }
-    public System.Collections.Generic.List<int> PassiveSkill { get; private set; }
+    public System.Collections.Generic.List<int> PassiveBuff { get; private set; }
     public int Hp { get; private set; }
     public int Def { get; private set; }
     public float MoveSpeed { get; private set; }
@@ -76,7 +76,7 @@ public sealed class HeroCfg :  Bright.Config.BeanBase
         + "Name:" + Name + ","
         + "Type:" + Type + ","
         + "ActiveSkill:" + Bright.Common.StringUtil.CollectionToString(ActiveSkill) + ","
-        + "PassiveSkill:" + Bright.Common.StringUtil.CollectionToString(PassiveSkill) + ","
+        + "PassiveBuff:" + Bright.Common.StringUtil.CollectionToString(PassiveBuff) + ","
         + "Hp:" + Hp + ","
         + "Def:" + Def + ","
         + "MoveSpeed:" + MoveSpeed + ","

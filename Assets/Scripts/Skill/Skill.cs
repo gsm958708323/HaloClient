@@ -22,15 +22,22 @@ public class Skill
     SkillState state = SkillState.End;
     SkillCfg cfg;
     TargetCfg targetCfg;
-    int id;
+    public int ID;
     Hero owner;
     Hero target;
 
     public Skill(int id, Hero hero)
     {
-        this.id = id;
+        this.ID = id;
         this.owner = hero;
         cfg = ConfigMgr.Instance.GetSkillCfg(id);
+    }
+
+    public void ModifyCfg(int id)
+    {
+        this.ID = id;
+        cfg = ConfigMgr.Instance.GetSkillCfg(id);
+        LogHelper.LogGreen($"替换技能：{id}");
     }
 
     public SkillState GetState()
@@ -79,9 +86,14 @@ public class Skill
         LogHelper.Log("技能开始");
         SetState(SkillState.Start);
 
-        //动作，朝向
-        owner.HeroView.PlayAnim(cfg.AnimName);
+        //动作
+        if (!string.IsNullOrEmpty(cfg.AnimName))
+        {
+            owner.HeroView.PlayAnim(cfg.AnimName);
+        }
+        //朝向
         owner.MoveComp.LookAtTarget(target);
+        //声音
         if (!string.IsNullOrEmpty(cfg.AudioStart))
         {
             AudioMgr.Instance.PlayAudio(cfg.AudioStart);
@@ -154,6 +166,9 @@ public class Skill
                 target.BuffComp.CreateBuff(id);
             }
         }
+
+        if(cfg.IsNormalAttack)
+            EventDispatcher.instance.DispatchEvent((int)BattleEvent.NormalAttackHit);
     }
 
     /// <summary>

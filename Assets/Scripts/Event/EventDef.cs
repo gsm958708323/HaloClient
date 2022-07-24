@@ -22,6 +22,9 @@ public enum EventDef
     /// 玩家移动状态变化
     /// </summary>
     UIMoveStateChange = 2,
+    InputSkillEvent = 3,
 
-    HeroDeath = 3,
+    HeroDeath = 11,
+
+    //1000之后给战斗事件使用
 }

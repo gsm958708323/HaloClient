@@ -44,7 +44,7 @@ public class BuffComp : Ilogic
     {
         buffList = new List<Buff>();
         //初始化被动buff
-        foreach (int id in owner.HeroCfg.PassiveSkill)
+        foreach (int id in owner.HeroCfg.PassiveBuff)
         {
             CreateBuff(id);//被动是施加给自己的
         }
